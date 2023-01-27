@@ -1,43 +1,48 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { SHOP_ROUTE } from '../utils/routeConsts'
-import { Button, Container, Nav, Navbar } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { Container, Nav, Navbar } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
-import { SECONDARY_COLOR, NAVLINK_STYLE } from '../utils/uiConsts'
+import { PRIMARY_COLOR } from '../utils/uiConsts'
+import { BsFillTelephoneFill } from 'react-icons/bs'
+import { IoIosMail } from 'react-icons/io'
+import NavBarStyles from '../styles/NavBarStyles.css'
 
 const NavBar = observer(() => {
-  const navigate = useNavigate()
-
   return (
         <Navbar
             bg="light"
             expand="lg"
             className="d-flex flex-column"
-            style={{ padding: 0 }}
+            style={{ padding: 0, margin: 0 }}
+            id="nav"
         >
             <Container
-                className="pt-2 pb-2"
-                style={{ background: SECONDARY_COLOR }}
-                fluid
+                className="d-flex pt-2 pb-2"
+                style={{ background: PRIMARY_COLOR }}
             >
-                <Navbar.Brand onClick={() => navigate(SHOP_ROUTE)} style={{ cursor: 'pointer' }}>COMPANY NAME</Navbar.Brand>
-                <Navbar.Toggle aria-controls="navbarScroll" />
-                <Navbar.Collapse id="navbarScroll">
-                    <Nav className="ms-auto">
-                        <Button
-                            className="ms-2 me-2"
-                            style={NAVLINK_STYLE}
+                <div style={{ width: '40%', marginLeft: 0, marginRight: 'auto' }}>
+                    <Nav className='d-inline-flex w-100 justify-content-between'>
+                        <div
+                            className='d-flex align-items-baseline'
+                            style={{ color: '#fff' }}
                         >
-                            Адрес
-                        </Button>
-                        <Button
-                            style={NAVLINK_STYLE}
-                            lassName="ms-2 me-2"
+                            <BsFillTelephoneFill className='me-2' />
+                            <span style={{ fontSize: '1.25rem' }}>Номер телефона</span>
+                        </div>
+                        <div
+                            className='d-flex align-items-end'
+                            style={{ color: '#fff' }}
                         >
-                            Контакты
-                        </Button>
+                            <IoIosMail className='me-2' fontSize={'1.75rem'} />
+                            <Link
+                                to="mailto:info@Technomarket.com"
+                                style={{ color: '#fff', textDecoration: 'none' }}
+                            >
+                                <span style={{ fontSize: '1.25rem' }} >info@Technomarket.com</span>
+                            </Link>
+                        </div>
                     </Nav>
-                </Navbar.Collapse>
+                </div>
             </Container>
         </Navbar>
   )
