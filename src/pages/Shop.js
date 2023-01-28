@@ -1,12 +1,15 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { Breadcrumb, Col, Container, Row } from 'react-bootstrap'
 import { Context } from '..'
 import SortBar from '../components/SortBar'
 import { fetchBrands, fetchCategories, fetchProducts } from '../components/http/productAPI'
 import Pages from '../components/Pages'
 import ProductList from '../components/ProductList'
 import FilterBar from '../components/FilterBar'
+import { ImHome3 } from 'react-icons/im'
+import { PRIMARY_COLOR } from '../utils/uiConsts'
 
 const Shop = observer(() => {
   const { product } = useContext(Context)
@@ -44,7 +47,17 @@ const Shop = observer(() => {
   }, [product.page, product.limit, product.selectedCategory, product.selectedBrand])
 
   return (
-        <Container className='pt-4'>
+        <Container>
+            <Breadcrumb className="pt-3">
+              <Breadcrumb.Item active>
+                <Link
+                  className='d-flex align-items-center'
+                  style={{ textDecoration: 'none', color: 'gray', cursor: 'default' }}
+                >
+                  <ImHome3 />&nbsp;Home
+                </Link>
+              </Breadcrumb.Item>
+            </Breadcrumb>
             <Row className="mt-2">
                 <Col md={3}>
                     <FilterBar isCategoriesLoading={isCategoriesLoading} isBrandsLoading={isBrandsLoading} />
