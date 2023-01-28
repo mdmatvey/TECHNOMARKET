@@ -37,7 +37,7 @@ const ProductList = observer(({ isProductsLoading }) => {
 
   return (
 
-        <Container style={{ background: '#ededed', padding: 10, overflow: 'auto' }}>
+        <Container style={{ padding: 10, overflow: 'auto' }}>
             <Row style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, width: '100%' }}>
                 {
                     isProductsLoading

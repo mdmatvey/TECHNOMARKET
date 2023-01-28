@@ -1,14 +1,15 @@
 import { observer } from 'mobx-react-lite'
 import React, { useState, useContext, useEffect } from 'react'
 import { Spinner } from 'react-bootstrap'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Link } from 'react-router-dom'
 import { Context } from './index'
 import AppRouter from './components/AppRouter'
 import { check } from './components/http/userAPI'
 import NavBar from './components/NavBar'
+import BrandBar from './components/BrandBar'
 
 const App = observer(() => {
-  const { user } = useContext(Context)
+  const { user, breadcrumbs } = useContext(Context)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -48,7 +49,8 @@ const App = observer(() => {
   return (
       <BrowserRouter>
         <NavBar />
-        <main style={{ minHeight: '100vh', background: '#EEEEEE' }}>
+        <BrandBar />
+        <main style={{ minHeight: '100vh' }}>
           <AppRouter />
         </main>
       </BrowserRouter>

@@ -27,7 +27,12 @@ const NavBar = observer(() => {
                             style={{ color: '#fff' }}
                         >
                             <BsFillTelephoneFill className='me-2' />
-                            <span style={{ fontSize: '1.25rem' }}>Номер телефона</span>
+                            <Link
+                                callto="tel:+79991234567"
+                                style={{ color: '#fff', textDecoration: 'none' }}
+                            >
+                                <span style={{ fontSize: '1.25rem' }}>+7 (999) 123-45-67</span>
+                            </Link>
                         </div>
                         <div
                             className='d-flex align-items-end'
