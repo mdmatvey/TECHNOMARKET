@@ -1,5 +1,3 @@
-// export const PRIMARY_COLOR = '#777777';
-// export const SECONDARY_COLOR = '#B0B0B0';
 export const PRIMARY_COLOR = '#088434'
 export const SECONDARY_COLOR = 'lightgray'
 
