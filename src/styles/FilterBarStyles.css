@@ -1,7 +1,17 @@
 .accordion-item {
-    border: none !important;
+    border: none;
 }
 
 .accordion-button {
-    padding: 7px !important;
+    padding: 7px;
+    font-size: 1.1rem;
+}
+
+.accordion-button:not(.collapsed) {
+    color: black;
+    background: #fff;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
 }

@@ -64,7 +64,7 @@ const SortdBar = observer(() => {
                                     <Button
                                         onClick={(e) => itemsOnPage(e, 8)}
                                         id="eight"
-                                        style={{ ...TEXTBUTTON_STYLE, color: '#fff', fontSize: 'bold' }}
+                                        style={{ ...TEXTBUTTON_STYLE, color: '#fff', fontWeight: 'bold' }}
                                     >
                                         8
                                     </Button>

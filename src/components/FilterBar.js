@@ -40,13 +40,13 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
 
   return (
         <Card style={{ width: '100%', padding: 4, border: 'none', boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px' }}>
-            <Accordion flush>
-              Категории
+            <Accordion className='p-3' flush>
+              <span style={{ fontSize: '1.75rem', fontWeight: 'bold' }}>Категории:</span>
                 {
                   isCategoriesLoading
                     ? <Skeleton count={4} style={{ width: '80%' }} />
                     : product.categories.map(category =>
-                        <Accordion.Item eventKey={category.id} key={category.id} style={{ padding: 0 }}>
+                        <Accordion.Item eventKey={category.id} key={category.id}>
                           <Accordion.Header>{category.name}</Accordion.Header>
                           <Accordion.Body>
                             Подкатегория
@@ -55,17 +55,20 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
                     )
                 }
             </Accordion>
-            Бренды:
-            <Form style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, width: '100%', background: '#fff' }}>
-                {
-                    isBrandsLoading
-                      ? <>
-                            <Skeleton count={4} style={{ width: '80%' }} />
-                            <Skeleton count={4} style={{ width: '80%' }} />
-                        </>
-                      : product.brands.map(brand => <Form.Check key={brand.id} label={brand.name} />)
-                }
-            </Form>
+            <hr />
+            <div className='p-3'>
+              <span style={{ fontSize: '1.75rem', fontWeight: 'bold' }}>Бренды:</span>
+              <Form className='mt-2' style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, width: '100%', background: '#fff' }}>
+                  {
+                      isBrandsLoading
+                        ? <>
+                              <Skeleton count={4} style={{ width: '80%' }} />
+                              <Skeleton count={4} style={{ width: '80%' }} />
+                          </>
+                        : product.brands.map(brand => <Form.Check key={brand.id} label={brand.name} style={{ fontSize: '1.1rem' }} />)
+                  }
+              </Form>
+            </div>
         </Card>
   )
 })
