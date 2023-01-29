@@ -1,14 +1,14 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../index'
-import { Form } from 'react-bootstrap'
+import { Accordion, Card, Dropdown, Form } from 'react-bootstrap'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import FilterBarStyles from '../styles/FilterBarStyles.css'
+import { PRIMARY_COLOR } from '../utils/uiConsts'
 
 const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
   const { user, product } = useContext(Context)
-
-  const [query, setQuery] = useState('')
 
   const [columns, setColumns] = useState(2)
 
@@ -23,11 +23,6 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
       setColumns(2)
     }
   }, [user.userWidth])
-
-  // const [brands, setBrands] = useState([]);
-  // useEffect(() => {
-  //     setBrands(product.brands)
-  // }, [product.brands])
 
   useEffect(() => {
     if (document.getElementsByClassName('filterBarChecked')[0]) {
@@ -44,7 +39,22 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
   }
 
   return (
-        <div style={{ background: '#fff', width: '100%', padding: 4 }}>
+        <Card style={{ width: '100%', padding: 4, border: 'none', boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px' }}>
+            <Accordion flush>
+              Категории
+                {
+                  isCategoriesLoading
+                    ? <Skeleton count={4} style={{ width: '80%' }} />
+                    : product.categories.map(category =>
+                        <Accordion.Item eventKey={category.id} key={category.id} style={{ padding: 0 }}>
+                          <Accordion.Header>{category.name}</Accordion.Header>
+                          <Accordion.Body>
+                            Подкатегория
+                          </Accordion.Body>
+                        </Accordion.Item>
+                    )
+                }
+            </Accordion>
             Бренды:
             <Form style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, width: '100%', background: '#fff' }}>
                 {
@@ -53,43 +63,10 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
                             <Skeleton count={4} style={{ width: '80%' }} />
                             <Skeleton count={4} style={{ width: '80%' }} />
                         </>
-                      : product.brands.filter(brand => {
-                        if (brand.name.toLowerCase().includes(query.toLowerCase())) {
-                          return true
-                        }
-
-                        return false
-                      }).map(brand => <Form.Check key={brand.id} label={brand.name} />)
+                      : product.brands.map(brand => <Form.Check key={brand.id} label={brand.name} />)
                 }
             </Form>
-            <Form className="d-inline-flex">
-                <Form.Control
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    type="search"
-                    placeholder="Поиск по брендам"
-                    className="me-2"
-                    aria-label="Search"
-                />
-            </Form><br/>
-            Категории:
-            <Form style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, width: '100%', background: '#fff' }}>
-                {
-                    isCategoriesLoading
-                      ? <>
-                            <Skeleton count={4} style={{ width: '80%' }} />
-                            <Skeleton count={4} style={{ width: '80%' }} />
-                        </>
-                      : product.categories.map(category => {
-                        return (
-                          product.categoriesToDisplay.map(category => category.name).includes(category.name)
-                            ? <Form.Check onClick={(e) => chooseCategory(e, category)} key={category.id} label={category.name} className="filterBarChecked" />
-                            : <Form.Check onClick={(e) => chooseCategory(e, category)} key={category.id} label={category.name} />
-                        )
-                      })
-                }
-            </Form>
-        </div>
+        </Card>
   )
 })
 
