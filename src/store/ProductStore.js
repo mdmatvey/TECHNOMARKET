@@ -9,6 +9,7 @@ export default class ProductStore {
     this._currentProducts = []
     this._selectedCategory = {}
     this._selectedBrand = {}
+    this._displayGrid = true
     this._page = 1
     this._totalCount = 0
     this._limit = 8
@@ -49,6 +50,10 @@ export default class ProductStore {
     this._limit = limit
   }
 
+  setDisplayGrid (bool) {
+    this._displayGrid = bool
+  }
+
   setPage (page) {
     this._page = page
   }
@@ -87,6 +92,10 @@ export default class ProductStore {
 
   get totalCount () {
     return this._totalCount
+  }
+
+  get displayGrid () {
+    return this._displayGrid
   }
 
   get page () {

@@ -25,8 +25,8 @@ export const CARTBUTTON_STYLE = {
 }
 
 export const TEXTBUTTON_STYLE = {
-  color: '#000',
   background: 'none',
   border: 'none',
-  borderRadius: '0'
+  borderRadius: '0',
+  fontSize: '1.1rem'
 }

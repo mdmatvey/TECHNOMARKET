@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card, Col, Image } from 'react-bootstrap'
 import { PRODUCT_ROUTE } from '../utils/routeConsts'
+import { observer } from 'mobx-react-lite'
+import { Context } from '..'
 
-const Product = ({ item }) => {
+const Product = observer(({ item }) => {
   const navigate = useNavigate()
 
+  const { product } = useContext(Context)
+
   return (
-        <Col className='m-3'>
+    product.displayGrid
+      ? <Col className='m-3'>
             <div style={{ height: '100%', position: 'relative', borderRadius: 5, boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px' }}>
                 <Card
                     className='pb-4'
@@ -23,8 +28,19 @@ const Product = ({ item }) => {
                         <strong>{item.price.toFixed(2)}₽</strong>
                 </div>
             </div>
-        </Col>
+          </Col>
+      : <Card
+            style={{ display: 'grid', alignItems: 'center', gridTemplateColumns: '3fr 7fr 4fr 1fr', gridTemplateRows: 170, width: '100%', marginBottom: 10, cursor: 'pointer', boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px', border: 'none' }}
+            onClick={() => navigate(PRODUCT_ROUTE + '/' + item.id)}
+        >
+            <Card.Img style={{ height: '80%', width: '80%', objectFit: 'contain', marginLeft: 'auto', marginRight: 'auto' }} src={item.image} />
+            <Card.Body>
+                <Card.Title style={{ fontSize: '1.1rem' }}>{item.title}</Card.Title>
+                <Card.Subtitle>{item.category}</Card.Subtitle>
+                <Card.Text><h2>{(item.price).toFixed(2)}₽</h2></Card.Text>
+            </Card.Body>
+        </Card>
   )
-}
+})
 
 export default Product
