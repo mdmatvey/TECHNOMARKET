@@ -1,20 +1,14 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card, Col, Image } from 'react-bootstrap'
-import { CATEGORIES_ROUTE, BRANDS_ROUTE, SHOP_ROUTE } from '../utils/routeConsts'
+import { BRANDS_ROUTE, SHOP_ROUTE } from '../utils/routeConsts'
 import { Context } from '..'
 
-const Item = ({ path, purpose }) => {
+const Item = ({ path }) => {
   const navigate = useNavigate()
   const { product } = useContext(Context)
 
-  let route
-
-  if (purpose === 'categories') {
-    route = CATEGORIES_ROUTE
-  } else if (purpose === 'brands') {
-    route = BRANDS_ROUTE
-  }
+  const route = BRANDS_ROUTE
 
   return (
         <Col
