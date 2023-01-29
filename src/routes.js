@@ -1,14 +1,10 @@
-import { CATEGORIES_ROUTE, BRANDS_ROUTE, PRODUCT_ROUTE, SHOP_ROUTE } from './utils/routeConsts'
+import { BRANDS_ROUTE, PRODUCT_ROUTE, SHOP_ROUTE, ABOUT_ROUTE } from './utils/routeConsts'
 import Shop from './pages/Shop'
 import ProductPage from './pages/ProductPage'
-import Categories from './pages/Categories'
 import Brands from './pages/Brands'
+import About from './pages/About'
 
 export const publicRoutes = [
-  {
-    path: CATEGORIES_ROUTE,
-    Component: Categories
-  },
   {
     path: BRANDS_ROUTE,
     Component: Brands
@@ -20,5 +16,9 @@ export const publicRoutes = [
   {
     path: PRODUCT_ROUTE + '/:id',
     Component: ProductPage
+  },
+  {
+    path: ABOUT_ROUTE,
+    Component: About
   }
 ]
