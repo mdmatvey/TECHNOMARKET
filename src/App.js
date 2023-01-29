@@ -5,7 +5,6 @@ import { BrowserRouter, Link } from 'react-router-dom'
 import { Context } from './index'
 import AppRouter from './components/AppRouter'
 import { check } from './components/http/userAPI'
-import NavBar from './components/NavBar'
 import BrandBar from './components/BrandBar'
 
 const App = observer(() => {
@@ -48,7 +47,6 @@ const App = observer(() => {
 
   return (
       <BrowserRouter>
-        <NavBar />
         <BrandBar />
         <main style={{ minHeight: '100vh' }}>
           <AppRouter />
