@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Breadcrumb, Card, Col, Container, Row, Image } from 'react-bootstrap'
+import { Breadcrumb, Card, Carousel, Col, Container, Row, Image } from 'react-bootstrap'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { fetchOneProduct } from '../components/http/productAPI'
@@ -71,7 +71,15 @@ const ProductPage = observer(() => {
                     {
                         isLoading
                           ? <Skeleton style={{ display: 'block', margin: '0 auto', width: 300, height: 300 }} />
-                          : <Image style={{ objectFit: 'contain', display: 'block', margin: '0 auto' }} width={300} height={300} src={product.products.image} />
+                          : <Carousel variant="dark">
+                              <Carousel.Item>
+                                <img
+                                  className="d-block w-100"
+                                  src={product.products.image}
+                                  style={{ objectFit: 'contain', display: 'block', margin: '0 auto', width: 300, height: 300 }}
+                                />
+                              </Carousel.Item>
+                            </Carousel>
                     }
                 </Col>
                 <Col md={md1}>
