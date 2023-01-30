@@ -4,17 +4,28 @@ import { Button, Dropdown, DropdownButton, Row } from 'react-bootstrap'
 import { Context } from '..'
 import { TEXTBUTTON_STYLE } from '../utils/uiConsts'
 import { TiThList, TiThLarge } from 'react-icons/ti'
+import SortBarStyles from '../styles/SortBarStyles.css'
 
 const SortdBar = observer(() => {
   const { user, product } = useContext(Context)
 
   const [dropdown, setDropdown] = useState(false)
 
+  const [flexDirection, setFlexDirection] = useState('flex-row')
+
   useEffect(() => {
-    if (user.userWidth < 992) {
+    if (user.userWidth < 1200) {
       setDropdown(true)
-    } else if (user.userWidth >= 992) {
+    } else if (user.userWidth >= 1200) {
       setDropdown(false)
+    }
+  }, [user.userWidth])
+
+  useEffect(() => {
+    if (user.userWidth < 500) {
+      setFlexDirection('flex-column')
+    } else if (user.userWidth >= 500) {
+      setFlexDirection('flex-row')
     }
   }, [user.userWidth])
 
@@ -38,24 +49,24 @@ const SortdBar = observer(() => {
             <div className="d-flex align-items-center col-md-6" style={{ width: '100%' }}>
                 {
                     dropdown
-                      ? <div className='d-flex justify-content-between' style={{ width: '100%' }}>
-                            <DropdownButton variant="secondary" title="Сортировать по">
+                      ? <div className={`d-flex ${flexDirection} justify-content-between`} style={{ width: '100%' }}>
+                            <DropdownButton title="Сортировать по">
                                 <Dropdown.Item>
-                                    <Button style={TEXTBUTTON_STYLE}>наличие</Button>
+                                    <Button style={{ ...TEXTBUTTON_STYLE, color: '#000' }}>наличие</Button>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <Button style={TEXTBUTTON_STYLE}>цена</Button>
+                                    <Button style={{ ...TEXTBUTTON_STYLE, color: '#000' }}>цена</Button>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <Button style={TEXTBUTTON_STYLE}>срок</Button>
+                                    <Button style={{ ...TEXTBUTTON_STYLE, color: '#000' }}>срок</Button>
                                 </Dropdown.Item>
                             </DropdownButton>
-                            <DropdownButton variant="secondary" title="На странице">
+                            <DropdownButton title="На странице">
                                 <Dropdown.Item>
                                     <Button
                                         onClick={(e) => itemsOnPage(e, 4)}
                                         id="four"
-                                        style={TEXTBUTTON_STYLE}
+                                        style={{ ...TEXTBUTTON_STYLE, color: '#000' }}
                                     >
                                         4
                                     </Button>
@@ -64,7 +75,7 @@ const SortdBar = observer(() => {
                                     <Button
                                         onClick={(e) => itemsOnPage(e, 8)}
                                         id="eight"
-                                        style={{ ...TEXTBUTTON_STYLE, color: '#fff', fontWeight: 'bold' }}
+                                        style={{ ...TEXTBUTTON_STYLE, color: '#000', fontWeight: 'bold' }}
                                     >
                                         8
                                     </Button>
@@ -73,7 +84,7 @@ const SortdBar = observer(() => {
                                     <Button
                                         onClick={(e) => itemsOnPage(e, 12)}
                                         id="twelve"
-                                        style={{ ...TEXTBUTTON_STYLE, color: '#fff' }}
+                                        style={{ ...TEXTBUTTON_STYLE, color: '#000' }}
                                     >
                                         12
                                     </Button>
@@ -82,13 +93,13 @@ const SortdBar = observer(() => {
                                     <Button
                                         onClick={(e) => itemsOnPage(e, 20)}
                                         id="all"
-                                        style={{ ...TEXTBUTTON_STYLE, color: '#fff' }}
+                                        style={{ ...TEXTBUTTON_STYLE, color: '#000' }}
                                     >
                                         Все
                                     </Button>
                                 </Dropdown.Item>
                             </DropdownButton>
-                            <DropdownButton variant="secondary" title="Вид">
+                            <DropdownButton title="Вид">
                                 <Dropdown.Item>
                                     <Button onClick={(e) => listType(true, document.getElementById('grid'), document.getElementById('list'))} style={TEXTBUTTON_STYLE}>
                                         <TiThLarge id="grid" />

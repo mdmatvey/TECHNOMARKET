@@ -15,3 +15,17 @@
 .accordion-button:focus {
     box-shadow: none;
 }
+
+@media screen and (max-width: 992px) {
+    span.filterCategory {
+        font-size: 1.25rem !important;
+    }
+
+    .accordion-button, .accordion-body, .form-check-label {
+        font-size: 1.1rem;
+    }
+    
+    .accordion-body {
+        padding: 5px 1px;
+    }
+}

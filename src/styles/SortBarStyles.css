@@ -1,0 +1,18 @@
+.btn-primary {
+    background: #000;
+    border-color: #000;
+    color: #fff;
+    --bs-btn-active-bg: #000;
+}
+
+.btn-primary.show {
+    background: #fff;
+    border-color: #fff;
+    color: #000;
+}
+
+.btn:hover {
+    background: #fff;
+    border-color: #fff;
+    color: #000;
+}

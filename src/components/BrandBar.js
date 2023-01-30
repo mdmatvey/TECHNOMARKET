@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Container, Form, Image } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 import Logo from '../logo.svg'
@@ -7,9 +7,31 @@ import { ABOUT_ROUTE, SHOP_ROUTE, BRANDS_ROUTE } from '../utils/routeConsts'
 import { TEXTBUTTON_STYLE } from '../utils/uiConsts'
 import { BsFillTelephoneFill } from 'react-icons/bs'
 import { IoIosMail } from 'react-icons/io'
+import { Context } from '..'
+import BrandBarStyles from '../styles/BrandBarStyles.css'
 
 const BrandBar = observer(() => {
+  const { user } = useContext(Context)
   const navigate = useNavigate()
+
+  const [outerFlexDirection, setOuterFlexDirection] = useState('flex-row')
+  const [innerFlexDirection, setInnerFlexDirection] = useState('flex-row')
+
+  useEffect(() => {
+    if (user.userWidth < 992) {
+      setOuterFlexDirection('flex-column')
+    } else if (user.userWidth >= 992) {
+      setOuterFlexDirection('flex-row')
+    }
+  }, [user.userWidth])
+
+  useEffect(() => {
+    if (user.userWidth < 500) {
+      setInnerFlexDirection('flex-column')
+    } else if (user.userWidth >= 500) {
+      setInnerFlexDirection('flex-row')
+    }
+  }, [user.userWidth])
 
   const choosePage = (e, route, element1, element2) => {
     navigate(route)
@@ -20,8 +42,8 @@ const BrandBar = observer(() => {
 
   return (
         <>
-            <Container className='d-flex align-items-center justify-content-between pt-5'>
-                <Image src={Logo} onClick={() => navigate(SHOP_ROUTE)} style={{ cursor: 'pointer' }} />
+            <Container className={`d-flex ${outerFlexDirection} align-items-center justify-content-between pt-5`}>
+                <Image src={Logo} onClick={() => navigate(SHOP_ROUTE)} id='logo' style={{ cursor: 'pointer' }} />
                 <Form className="d-flex">
                     <Form.Control
                         type="search"
@@ -32,8 +54,8 @@ const BrandBar = observer(() => {
                     <Button variant="outline-success">Search</Button>
                 </Form>
             </Container>
-            <Container className='d-flex justify-content-between mt-3'>
-                <div>
+            <Container className={`d-flex ${outerFlexDirection} justify-content-between mt-3`}>
+                <div className={`d-flex ${innerFlexDirection}`} style={{ marginLeft: 'auto' }}>
                     <Button
                         onClick={(e) => choosePage(e, ABOUT_ROUTE, document.getElementById('catalog'), document.getElementById('brands'))}
                         className='me-3'
@@ -58,7 +80,7 @@ const BrandBar = observer(() => {
                         Бренды
                     </Button>
                 </div>
-                <div className='d-inline-flex align-items-center'>
+                <div className={`d-flex ${innerFlexDirection} align-items-center`} style={{ marginLeft: 'auto' }}>
                     <div
                         className='d-flex align-items-baseline me-4'
                         style={{ color: '#000' }}
