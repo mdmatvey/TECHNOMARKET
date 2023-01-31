@@ -16,7 +16,6 @@ const Shop = observer(() => {
   const [isBrandsLoading, setIsBrandsIsLoading] = useState(true)
   const [isProductsLoading, setIsProductsLoading] = useState(true)
 
-  const [element, setElement] = useState(null)
   const [p, setP] = useState(3)
 
   useEffect(() => {
@@ -49,14 +48,6 @@ const Shop = observer(() => {
   }, [product.page, product.limit, product.selectedCategory, product.selectedBrand])
 
   useEffect(() => {
-    if (user.userWidth < 992) {
-      setElement(null)
-    } else if (user.userWidth >= 992) {
-      setElement('container')
-    }
-  }, [user.userWidth])
-
-  useEffect(() => {
     if (user.userWidth < 768) {
       setP(0)
     } else if (user.userWidth >= 768) {
@@ -78,7 +69,7 @@ const Shop = observer(() => {
               </Breadcrumb.Item>
             </Breadcrumb>
           </Container>
-          <div className={element}>
+          <Container>
               <Row>
                   <Col md={3} className={`p-${p}`}>
                       <FilterBar isCategoriesLoading={isCategoriesLoading} isBrandsLoading={isBrandsLoading} />
@@ -89,7 +80,7 @@ const Shop = observer(() => {
                       <Pages />
                   </Col>
               </Row>
-          </div>
+          </Container>
         </div>
   )
 })
