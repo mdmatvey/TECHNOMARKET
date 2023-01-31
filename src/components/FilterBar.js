@@ -1,11 +1,10 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../index'
-import { Accordion, Card, Dropdown, Form } from 'react-bootstrap'
+import { Accordion, Card, Form } from 'react-bootstrap'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import FilterBarStyles from '../styles/FilterBarStyles.css'
-import { PRIMARY_COLOR } from '../utils/uiConsts'
 
 const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
   const { user, product } = useContext(Context)
