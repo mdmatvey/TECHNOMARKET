@@ -56,10 +56,10 @@ const SortdBar = observer(() => {
                       ? <div className={`d-flex ${flexDirection} justify-content-between`} style={{ width: '100%' }}>
                             <DropdownButton title="Сортировать по">
                                 <Dropdown.Item>
-                                    <Button style={{ ...TEXTBUTTON_STYLE, color: '#000' }}>наличие</Button>
+                                    <Button style={{ ...TEXTBUTTON_STYLE, color: '#000' }}>цена</Button>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <Button style={{ ...TEXTBUTTON_STYLE, color: '#000' }}>цена</Button>
+                                    <Button style={{ ...TEXTBUTTON_STYLE, color: '#000' }}>популярность</Button>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
                                     <Button style={{ ...TEXTBUTTON_STYLE, color: '#000' }}>срок</Button>
@@ -119,9 +119,8 @@ const SortdBar = observer(() => {
                       : <div className='d-flex justify-content-between w-100'>
                             <span className='d-flex align-items-baseline'>
                                 Сортировать по:
-                                <Button style={TEXTBUTTON_STYLE}>наличие</Button>
                                 <Button style={TEXTBUTTON_STYLE}>цена</Button>
-                                <Button style={TEXTBUTTON_STYLE}>срок</Button>
+                                <Button style={TEXTBUTTON_STYLE} >популярность</Button>
                             </span>
                             <span className="d-flex align-items-center">
                                 На странице:
