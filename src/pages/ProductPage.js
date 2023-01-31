@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Breadcrumb, Card, Carousel, Col, Container, Row, Image } from 'react-bootstrap'
+import { Breadcrumb, Card, Carousel, Col, Container, Row } from 'react-bootstrap'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { fetchOneProduct } from '../components/http/productAPI'

@@ -1,14 +1,14 @@
 import { observer } from 'mobx-react-lite'
 import React, { useState, useContext, useEffect } from 'react'
 import { Spinner } from 'react-bootstrap'
-import { BrowserRouter, Link } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { Context } from './index'
 import AppRouter from './components/AppRouter'
 import { check } from './components/http/userAPI'
 import BrandBar from './components/BrandBar'
 
 const App = observer(() => {
-  const { user, breadcrumbs } = useContext(Context)
+  const { user } = useContext(Context)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
