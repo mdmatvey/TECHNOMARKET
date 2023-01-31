@@ -3,7 +3,7 @@ import { makeAutoObservable } from 'mobx'
 export default class ProductStore {
   constructor () {
     this._categories = []
-    this._categoriesToDisplay = []
+    this._catalogToDisplay = []
     this._brands = []
     this._products = []
     this._currentProducts = []
@@ -20,8 +20,8 @@ export default class ProductStore {
     this._categories = categories
   }
 
-  setCategoriesToDisplay (categories) {
-    this._categoriesToDisplay = categories
+  setCatalogToDisplay (catalog) {
+    this._catalogToDisplay = catalog
   }
 
   setBrands (brands) {
@@ -66,8 +66,8 @@ export default class ProductStore {
     return this._categories
   }
 
-  get categoriesToDisplay () {
-    return this._categoriesToDisplay
+  get catalogToDisplay () {
+    return this._catalogToDisplay
   }
 
   get brands () {

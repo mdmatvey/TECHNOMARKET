@@ -9,17 +9,17 @@ const ProductList = observer(({ isProductsLoading }) => {
   const { user, product } = useContext(Context)
 
   useEffect(() => {
-    if (product.categoriesToDisplay.length === 0) {
+    if (product.catalogToDisplay.length === 0) {
       product.setCurrentProducts(product.products)
       return
     }
 
-    const categoriesToDisplay = product.categoriesToDisplay.map(category => category.name)
+    const catalogToDisplay = product.catalogToDisplay.map(brand => brand.name)
 
     if (product.products.length !== undefined) {
-      product.setCurrentProducts(product.products.filter(product => categoriesToDisplay.includes(product.category)))
+      product.setCurrentProducts(product.products.filter(product => catalogToDisplay.includes(product.brand)))
     }
-  }, [product.products, product.categoriesToDisplay])
+  }, [product.products, product.catalogToDisplay])
 
   const [columns, setColumns] = useState(4)
 

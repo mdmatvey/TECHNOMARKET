@@ -1,29 +1,40 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Card, Col, Image } from 'react-bootstrap'
-import { BRANDS_ROUTE, SHOP_ROUTE } from '../utils/routeConsts'
-import { Context } from '..'
+import { Button, Card, Col, Image } from 'react-bootstrap'
+import { SHOP_ROUTE } from '../utils/routeConsts'
+import { Context } from '../index'
+import BrandCard from './modals/BrandCard'
 
 const Item = ({ path }) => {
   const navigate = useNavigate()
   const { product } = useContext(Context)
 
-  const route = BRANDS_ROUTE
+  const [modalShow, setModalShow] = useState(false)
+
+  const followBrand = () => {
+    if (!product.catalogToDisplay.map(category => category.name).includes(path.name)) {
+      product.setCatalogToDisplay([])
+      product.setCatalogToDisplay([...product.catalogToDisplay, path])
+    }
+
+    navigate(SHOP_ROUTE)
+  }
 
   return (
         <Col
             className={'mt-5 mb-4'}
         >
+          <BrandCard
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            path={path}
+            followBrand={followBrand}
+          />
             <Card
                 style={{ display: 'block', margin: '0 auto', width: 250, height: 260, cursor: 'pointer', textAlign: 'center', boxShadow: '0px 0px 8px 3px rgba(99, 99, 99, 0.2)' }}
                 border={'light'}
                 onClick={() => {
-                  if (!product.categoriesToDisplay.map(category => category.name).includes(path.name)) {
-                    product.setCategoriesToDisplay([])
-                    product.setCategoriesToDisplay([...product.categoriesToDisplay, path])
-                  }
-
-                  navigate(SHOP_ROUTE)
+                  setModalShow(true)
                 }}
             >
                 <Image width={'100%'} height={'80%'} style={{ objectFit: 'cover', marginLeft: 'auto', marginRight: 'auto' }} src={path.image} />

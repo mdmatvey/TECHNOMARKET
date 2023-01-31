@@ -1,12 +1,10 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { Pagination } from 'react-bootstrap'
 import { Context } from '../index'
 
 const Pages = observer(() => {
-  const { user, product } = useContext(Context)
-
-  const [paginationStyle, setPaginationStyle] = useState({});
+  const { product } = useContext(Context);
 
   (async function getTotalProductCount () {
     const response = await fetch('https://fakestoreapi.com/products')
@@ -22,18 +20,8 @@ const Pages = observer(() => {
     pages.push(i + 1)
   }
 
-  useEffect(() => {
-    if (user.userWidth < 768) {
-      setPaginationStyle({
-        justifyContent: 'center'
-      })
-    } else if (user.userWidth >= 768) {
-      setPaginationStyle({})
-    }
-  }, [user.userWidth])
-
   return (
-        <Pagination className='mt-5' style={paginationStyle}>
+        <Pagination className='mt-5' style={{ justifyContent: 'center' }}>
             {pages.map(page =>
                 <Pagination.Item
                     key={page}
