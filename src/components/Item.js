@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button, Card, Col, Image } from 'react-bootstrap'
+import { Card, Col, Image } from 'react-bootstrap'
 import { SHOP_ROUTE } from '../utils/routeConsts'
 import { Context } from '../index'
 import BrandCard from './modals/BrandCard'
