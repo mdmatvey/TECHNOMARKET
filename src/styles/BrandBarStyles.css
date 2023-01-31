@@ -1,5 +1,21 @@
+.me-3 {
+    margin: 0 !important;
+}
+
+@media screen and (max-width: 992px) {
+    #searchbar {
+        width: 100%;
+    }
+}
+
 @media screen and (max-width: 520px) {
     #logo {
         width: 100%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    button#about {
+        margin-top: 30px !important;
     }
 }

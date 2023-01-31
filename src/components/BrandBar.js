@@ -19,7 +19,7 @@ const BrandBar = observer(() => {
 
   useEffect(() => {
     if (user.userWidth < 992) {
-      setOuterFlexDirection('flex-column')
+      setOuterFlexDirection('flex-column-reverse')
     } else if (user.userWidth >= 992) {
       setOuterFlexDirection('flex-row')
     }
@@ -44,7 +44,7 @@ const BrandBar = observer(() => {
         <>
             <Container className={`d-flex ${outerFlexDirection} align-items-center justify-content-between pt-5`}>
                 <Image src={Logo} onClick={() => navigate(SHOP_ROUTE)} id='logo' style={{ cursor: 'pointer' }} />
-                <Form className="d-flex">
+                <Form className="d-flex" id='searchbar'>
                     <Form.Control
                         type="search"
                         placeholder="Search"
@@ -55,7 +55,7 @@ const BrandBar = observer(() => {
                 </Form>
             </Container>
             <Container className={`d-flex ${outerFlexDirection} justify-content-between mt-3`}>
-                <div className={`d-flex ${innerFlexDirection}`} style={{ marginLeft: 'auto' }}>
+                <div className={`d-flex ${innerFlexDirection}`}>
                     <Button
                         onClick={(e) => choosePage(e, ABOUT_ROUTE, document.getElementById('catalog'), document.getElementById('brands'))}
                         className='me-3'
@@ -80,7 +80,7 @@ const BrandBar = observer(() => {
                         Бренды
                     </Button>
                 </div>
-                <div className={`d-flex ${innerFlexDirection} align-items-center`} style={{ marginLeft: 'auto' }}>
+                <div className={`d-flex ${innerFlexDirection} align-items-center`}>
                     <div
                         className='d-flex align-items-baseline me-4'
                         style={{ color: '#000' }}

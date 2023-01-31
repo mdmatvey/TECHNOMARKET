@@ -9,13 +9,15 @@ import Pages from '../components/Pages'
 import ProductList from '../components/ProductList'
 import FilterBar from '../components/FilterBar'
 import { ImHome3 } from 'react-icons/im'
-import { PRIMARY_COLOR } from '../utils/uiConsts'
 
 const Shop = observer(() => {
-  const { product } = useContext(Context)
+  const { user, product } = useContext(Context)
   const [isCategoriesLoading, setIsCategoriesIsLoading] = useState(true)
   const [isBrandsLoading, setIsBrandsIsLoading] = useState(true)
   const [isProductsLoading, setIsProductsLoading] = useState(true)
+
+  const [element, setElement] = useState(null)
+  const [p, setP] = useState(3)
 
   useEffect(() => {
     fetchCategories()
@@ -46,8 +48,25 @@ const Shop = observer(() => {
       })
   }, [product.page, product.limit, product.selectedCategory, product.selectedBrand])
 
+  useEffect(() => {
+    if (user.userWidth < 992) {
+      setElement(null)
+    } else if (user.userWidth >= 992) {
+      setElement('container')
+    }
+  }, [user.userWidth])
+
+  useEffect(() => {
+    if (user.userWidth < 768) {
+      setP(0)
+    } else if (user.userWidth >= 768) {
+      setP(3)
+    }
+  }, [user.userWidth])
+
   return (
-        <Container>
+        <div>
+          <Container>
             <Breadcrumb className="pt-3">
               <Breadcrumb.Item active>
                 <Link
@@ -58,17 +77,20 @@ const Shop = observer(() => {
                 </Link>
               </Breadcrumb.Item>
             </Breadcrumb>
-            <Row className="mt-2">
-                <Col md={3}>
-                    <FilterBar isCategoriesLoading={isCategoriesLoading} isBrandsLoading={isBrandsLoading} />
-                </Col>
-                <Col md={9}>
-                    <SortBar />
-                    <ProductList isProductsLoading={isProductsLoading} />
-                    <Pages />
-                </Col>
-            </Row>
-        </Container>
+          </Container>
+          <div className={element}>
+              <Row>
+                  <Col md={3} className={`p-${p}`}>
+                      <FilterBar isCategoriesLoading={isCategoriesLoading} isBrandsLoading={isBrandsLoading} />
+                  </Col>
+                  <Col md={9} className={`p-${p}`}>
+                      <SortBar />
+                      <ProductList isProductsLoading={isProductsLoading} />
+                      <Pages />
+                  </Col>
+              </Row>
+          </div>
+        </div>
   )
 })
 

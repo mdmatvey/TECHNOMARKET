@@ -1,18 +1,32 @@
-.btn-primary {
+.dropdown-toggle.btn-primary {
     background: #000;
     border-color: #000;
     color: #fff;
     --bs-btn-active-bg: #000;
 }
 
-.btn-primary.show {
+.dropdown-toggle.btn-primary.show {
     background: #fff;
     border-color: #fff;
     color: #000;
 }
 
-.btn:hover {
+.dropdown-toggle.btn:hover {
     background: #fff;
     border-color: #fff;
     color: #000;
+}
+
+@media screen and (max-width: 500px) {
+    #brandbar {
+        width: 80% !important;
+        margin-top: 10px !important;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #brandbar {
+        width: 80% !important;
+        margin-top: 10px !important;
+    }
 }

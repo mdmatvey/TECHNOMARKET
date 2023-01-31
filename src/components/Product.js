@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card, Col, Image } from 'react-bootstrap'
 import { PRODUCT_ROUTE } from '../utils/routeConsts'
@@ -7,12 +7,23 @@ import { Context } from '..'
 
 const Product = observer(({ item }) => {
   const navigate = useNavigate()
+  const { user, product } = useContext(Context)
 
-  const { product } = useContext(Context)
+  const [m, setM] = useState(3)
+
+  useEffect(() => {
+    if (user.userWidth < 1200) {
+      setM(3)
+    } else if (user.userWidth < 1400) {
+      setM(2)
+    } else if (user.userWidth >= 1400) {
+      setM(3)
+    }
+  }, [user.userWidth])
 
   return (
     product.displayGrid
-      ? <Col className='m-3'>
+      ? <Col className={`m-${m}`}>
             <div style={{ height: '100%', position: 'relative', borderRadius: 5, boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px' }}>
                 <Card
                     className='pb-4'

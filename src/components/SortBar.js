@@ -40,12 +40,16 @@ const SortdBar = observer(() => {
 
   const listType = (bool, element1, element2) => {
     product.setDisplayGrid(bool)
-    element1.style.color = '#fff'
     element2.style.color = 'gray'
+    if (dropdown) {
+      element1.style.color = '#000'
+    } else {
+      element1.style.color = '#fff'
+    }
   }
 
   return (
-        <Row className="d-flex" style={{ background: '#000', color: '#fff', fontSize: '1.1rem', width: '100%', margin: '0 auto', padding: '4px 8px', borderRadius: 5 }}>
+        <Row className="d-flex" style={{ background: '#000', color: '#fff', fontSize: '1.1rem', width: '100%', margin: '0 auto', padding: '4px 8px', borderRadius: 5 }} id='brandbar'>
             <div className="d-flex align-items-center col-md-6" style={{ width: '100%' }}>
                 {
                     dropdown
@@ -102,7 +106,7 @@ const SortdBar = observer(() => {
                             <DropdownButton title="Вид">
                                 <Dropdown.Item>
                                     <Button onClick={(e) => listType(true, document.getElementById('grid'), document.getElementById('list'))} style={TEXTBUTTON_STYLE}>
-                                        <TiThLarge id="grid" />
+                                        <TiThLarge id="grid" style={{ color: 'black' }} />
                                     </Button>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
