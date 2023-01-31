@@ -17,6 +17,15 @@
     color: #000;
 }
 
+ul.pagination li span {
+    background-color: #088434 !important;
+    border-color: #088434 !important;
+}
+
+ul.pagination li a {
+    color: #088434 !important;
+}
+
 @media screen and (max-width: 500px) {
     #brandbar {
         width: 80% !important;

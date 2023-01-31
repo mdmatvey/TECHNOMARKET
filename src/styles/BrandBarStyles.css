@@ -2,6 +2,16 @@
     margin: 0 !important;
 }
 
+form .btn.btn-outline-success {
+    color: #088434;
+    border-color: #088434;
+}
+
+form .btn.btn-outline-success:hover {
+    color: #fff;
+    background-color: #088434;
+}
+
 @media screen and (max-width: 992px) {
     #searchbar {
         width: 100%;

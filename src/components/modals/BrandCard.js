@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Image, Modal } from 'react-bootstrap'
+import { PRIMARY_COLOR } from '../../utils/uiConsts'
 
 function BrandCard (props) {
   return (
@@ -28,7 +29,7 @@ function BrandCard (props) {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.followBrand}>Перейти в каталог бренда</Button>
+        <Button onClick={props.followBrand} style={{ background: PRIMARY_COLOR, borderColor: PRIMARY_COLOR }}>Перейти в каталог бренда</Button>
       </Modal.Footer>
     </Modal>
   )
