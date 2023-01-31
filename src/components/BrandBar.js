@@ -33,11 +33,17 @@ const BrandBar = observer(() => {
     }
   }, [user.userWidth])
 
-  const choosePage = (e, route, element1, element2) => {
+  useEffect(() => {
+    if (document.URL[document.URL.length - 1] === '/') {
+      choosePage(SHOP_ROUTE, document.getElementById('about'), document.getElementById('brands'), document.getElementById('catalog'))
+    }
+  }, [document.URL])
+
+  const choosePage = (route, element1, element2, element3) => {
     navigate(route)
     element1.style.fontWeight = 'normal'
     element2.style.fontWeight = 'normal'
-    e.target.style.fontWeight = 'bold'
+    element3.style.fontWeight = 'bold'
   }
 
   return (
@@ -57,7 +63,7 @@ const BrandBar = observer(() => {
             <Container className={`d-flex ${outerFlexDirection} justify-content-between mt-3`}>
                 <div className={`d-flex ${innerFlexDirection}`}>
                     <Button
-                        onClick={(e) => choosePage(e, ABOUT_ROUTE, document.getElementById('catalog'), document.getElementById('brands'))}
+                        onClick={(e) => choosePage(ABOUT_ROUTE, document.getElementById('catalog'), document.getElementById('brands'), e.target)}
                         className='me-3'
                         style={{ ...TEXTBUTTON_STYLE, color: '#000', transition: '0.05s', fontSize: '1.5rem' }}
                         id='about'
@@ -65,7 +71,7 @@ const BrandBar = observer(() => {
                         О нас
                     </Button>
                     <Button
-                        onClick={(e) => choosePage(e, SHOP_ROUTE, document.getElementById('about'), document.getElementById('brands'))}
+                        onClick={(e) => choosePage(SHOP_ROUTE, document.getElementById('about'), document.getElementById('brands'), e.target)}
                         className='me-3'
                         style={{ ...TEXTBUTTON_STYLE, color: '#000', fontWeight: 'bold', transition: '0.05s', fontSize: '1.5rem' }}
                         id='catalog'
@@ -73,7 +79,7 @@ const BrandBar = observer(() => {
                         Каталог
                     </Button>
                     <Button
-                        onClick={(e) => choosePage(e, BRANDS_ROUTE, document.getElementById('about'), document.getElementById('catalog'))}
+                        onClick={(e) => choosePage(BRANDS_ROUTE, document.getElementById('about'), document.getElementById('catalog'), e.target)}
                         style={{ ...TEXTBUTTON_STYLE, color: '#000', transition: '0.05s', fontSize: '1.5rem' }}
                         id='brands'
                     >

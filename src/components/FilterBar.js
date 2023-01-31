@@ -28,13 +28,13 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
     if (document.getElementsByClassName('filterBarChecked')[0]) {
       document.getElementsByClassName('filterBarChecked')[0].children[0].checked = true
     }
-  }, [product.categories])
+  }, [product.brands])
 
-  const chooseCategory = (e, category) => {
+  const chooseCatalog = (e, brand) => {
     if (e.target.checked) {
-      product.setCategoriesToDisplay([...product.categoriesToDisplay, category])
+      product.setCatalogToDisplay([...product.catalogToDisplay, brand])
     } else {
-      product.setCategoriesToDisplay(product.categoriesToDisplay.filter(categoryToDisplay => category.id !== categoryToDisplay.id))
+      product.setCatalogToDisplay(product.catalogToDisplay.filter(catalogItemToDisplay => brand.id !== catalogItemToDisplay.id))
     }
   }
 
@@ -65,7 +65,13 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
                               <Skeleton count={4} style={{ width: '80%' }} />
                               <Skeleton count={4} style={{ width: '80%' }} />
                           </>
-                        : product.brands.map(brand => <Form.Check key={brand.id} label={brand.name} style={{ fontSize: '1.1rem' }} />)
+                        : product.brands.map(brand => {
+                          return (
+                            product.catalogToDisplay.map(brand => brand.name).includes(brand.name)
+                              ? <Form.Check onClick={(e) => chooseCatalog(e, brand)} key={brand.id} label={brand.name} className="filterBarChecked" style={{ fontSize: '1.1rem' }} />
+                              : <Form.Check onClick={(e) => chooseCatalog(e, brand)} key={brand.id} label={brand.name} />
+                          )
+                        })
                   }
               </Form>
             </div>
