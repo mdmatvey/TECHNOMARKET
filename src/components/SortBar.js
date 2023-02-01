@@ -59,8 +59,13 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
   const [popularityCaretDownDisplay, setPopularityCaretDownDisplay] = useState({ display: 'inline-block' })
 
   const priceSort = () => {
-    document.getElementById('popularity').style.color = 'gray'
-    document.getElementById('price').style.color = '#fff'
+    if (dropdown) {
+      document.getElementById('popularity-dropdown').style.color = 'gray'
+      document.getElementById('price-dropdown').style.color = '#000'
+    } else {
+      document.getElementById('popularity').style.color = 'gray'
+      document.getElementById('price').style.color = '#fff'
+    }
 
     if (i + 1 === 2) {
       i++
@@ -90,8 +95,13 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
   }
 
   const popularitySort = () => {
-    document.getElementById('price').style.color = 'gray'
-    document.getElementById('popularity').style.color = '#fff'
+    if (dropdown) {
+      document.getElementById('popularity-dropdown').style.color = '#000'
+      document.getElementById('price-dropdown').style.color = 'gray'
+    } else {
+      document.getElementById('popularity').style.color = '#fff'
+      document.getElementById('price').style.color = 'gray'
+    }
 
     if (j + 1 === 2) {
       j++
@@ -128,13 +138,22 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                       ? <div className={`d-flex ${flexDirection} justify-content-between`} style={{ width: '100%' }}>
                             <DropdownButton title="Сортировать по">
                                 <Dropdown.Item>
-                                    <Button style={{ ...TEXTBUTTON_STYLE, color: '#000' }}>цена</Button>
+                                    <Button
+                                        onClick={() => priceSort()}
+                                        style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
+                                        id='price-dropdown'
+                                    >
+                                        цена <BsCaretDownFill style={{ ...priceCaretDownDisplay, fontSize: '1rem' }} /> <BsCaretUpFill style={{ ...priceCaretUpDisplay, fontSize: '1rem' }} />
+                                    </Button>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <Button style={{ ...TEXTBUTTON_STYLE, color: '#000' }}>популярность</Button>
-                                </Dropdown.Item>
-                                <Dropdown.Item>
-                                    <Button style={{ ...TEXTBUTTON_STYLE, color: '#000' }}>срок</Button>
+                                    <Button
+                                        onClick={() => popularitySort()}
+                                        style={{ ...TEXTBUTTON_STYLE, color: '#000' }}
+                                        id='popularity-dropdown'
+                                    >
+                                        популярность <BsCaretDownFill style={{ ...popularityCaretDownDisplay, fontSize: '1rem' }} /> <BsCaretUpFill style={{ ...popularityCaretUpDisplay, fontSize: '1rem' }} />
+                                    </Button>
                                 </Dropdown.Item>
                             </DropdownButton>
                             <DropdownButton title="На странице">
