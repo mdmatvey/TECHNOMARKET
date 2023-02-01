@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 import { PRIMARY_COLOR } from '../utils/uiConsts'
 import { ImHome3 } from 'react-icons/im'
 import { TiThSmall } from 'react-icons/ti'
+import BrandBarStyles from '../styles/BrandBarStyles.css'
 
 const Brands = observer(() => {
   const { product, user } = useContext(Context)

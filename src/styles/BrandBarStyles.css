@@ -12,6 +12,16 @@ form .btn.btn-outline-success:hover {
     background-color: #088434;
 }
 
+input.form-control:focus {
+    border-color: #088434;
+    box-shadow: 0 0 0 0.25rem rgba(8, 132, 52, 25%);
+}
+
+input.form-control:checked {
+    background-color: #088434;
+    border-color: #088434;
+}
+
 @media screen and (max-width: 992px) {
     #searchbar {
         width: 100%;
