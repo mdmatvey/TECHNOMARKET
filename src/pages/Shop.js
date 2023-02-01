@@ -75,7 +75,7 @@ const Shop = observer(() => {
                       <FilterBar isCategoriesLoading={isCategoriesLoading} isBrandsLoading={isBrandsLoading} />
                   </Col>
                   <Col md={9} className={`p-${p}`}>
-                      <SortBar />
+                      <SortBar setIsProductsLoading={setIsProductsLoading} />
                       <ProductList isProductsLoading={isProductsLoading} />
                       <Pages />
                   </Col>
