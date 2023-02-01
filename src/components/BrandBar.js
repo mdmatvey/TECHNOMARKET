@@ -8,14 +8,27 @@ import { TEXTBUTTON_STYLE } from '../utils/uiConsts'
 import { BsFillTelephoneFill } from 'react-icons/bs'
 import { IoIosMail } from 'react-icons/io'
 import { Context } from '..'
+import { fetchFoundProducts } from './http/productAPI'
 import BrandBarStyles from '../styles/BrandBarStyles.css'
 
 const BrandBar = observer(() => {
-  const { user } = useContext(Context)
+  const { user, product } = useContext(Context)
   const navigate = useNavigate()
 
   const [outerFlexDirection, setOuterFlexDirection] = useState('flex-row')
   const [innerFlexDirection, setInnerFlexDirection] = useState('flex-row')
+
+  const [query, setQuery] = useState('')
+
+  const search = (searchParam) => {
+    product.setIsProductsLoading(true)
+    fetchFoundProducts(searchParam)
+      .then(data => {
+        product.setProducts(data)
+        product.setIsProductsLoading(false)
+        product.setTotalCount(data.length)
+      })
+  }
 
   useEffect(() => {
     if (user.userWidth < 992) {
@@ -52,12 +65,19 @@ const BrandBar = observer(() => {
                 <Image src={Logo} onClick={() => navigate(SHOP_ROUTE)} id='logo' style={{ cursor: 'pointer' }} />
                 <Form className="d-flex" id='searchbar'>
                     <Form.Control
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
                         type="search"
                         placeholder="Search"
                         className="me-2"
                         aria-label="Search"
                     />
-                    <Button variant="outline-success">Search</Button>
+                    <Button
+                        onClick={search(query)}
+                        variant="outline-success"
+                    >
+                        Search
+                    </Button>
                 </Form>
             </Container>
             <Container className={`d-flex ${outerFlexDirection} justify-content-between mt-3`}>

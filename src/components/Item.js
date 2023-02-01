@@ -12,9 +12,9 @@ const Item = ({ path }) => {
   const [modalShow, setModalShow] = useState(false)
 
   const followBrand = () => {
-    if (!product.catalogToDisplay.map(category => category.name).includes(path.name)) {
-      product.setCatalogToDisplay([])
-      product.setCatalogToDisplay([...product.catalogToDisplay, path])
+    if (!product.selectedBrands.map(brand => brand.name).includes(path.name)) {
+      product.setSelectedBrands([])
+      product.setSelectedBrands([...product.selectedBrands, path])
     }
 
     navigate(SHOP_ROUTE)

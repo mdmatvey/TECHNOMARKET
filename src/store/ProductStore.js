@@ -3,12 +3,11 @@ import { makeAutoObservable } from 'mobx'
 export default class ProductStore {
   constructor () {
     this._categories = []
-    this._catalogToDisplay = []
     this._brands = []
     this._products = []
-    this._currentProducts = []
+    this._isProductsLoading = true
     this._selectedCategory = {}
-    this._selectedBrand = {}
+    this._selectedBrands = {}
     this._displayGrid = true
     this._page = 1
     this._totalCount = 0
@@ -20,10 +19,6 @@ export default class ProductStore {
     this._categories = categories
   }
 
-  setCatalogToDisplay (catalog) {
-    this._catalogToDisplay = catalog
-  }
-
   setBrands (brands) {
     this._brands = brands
   }
@@ -32,8 +27,8 @@ export default class ProductStore {
     this._products = product
   }
 
-  setCurrentProducts (products) {
-    this._currentProducts = products
+  setIsProductsLoading (bool) {
+    this._isProductsLoading = bool
   }
 
   setSelectedCategory (category) {
@@ -41,9 +36,9 @@ export default class ProductStore {
     this._selectedCategory = category
   }
 
-  setSelectedBrand (brand) {
+  setSelectedBrands (brands) {
     this.setPage(1)
-    this._selectedBrand = brand
+    this._selectedBrands = brands
   }
 
   setLimit (limit) {
@@ -66,10 +61,6 @@ export default class ProductStore {
     return this._categories
   }
 
-  get catalogToDisplay () {
-    return this._catalogToDisplay
-  }
-
   get brands () {
     return this._brands
   }
@@ -78,16 +69,16 @@ export default class ProductStore {
     return this._products
   }
 
-  get currentProducts () {
-    return this._currentProducts
+  get isProductsLoading () {
+    return this._isProductsLoading
   }
 
   get selectedCategory () {
     return this._selectedCategory
   }
 
-  get selectedBrand () {
-    return this._selectedBrand
+  get selectedBrands () {
+    return this._selectedBrands
   }
 
   get totalCount () {

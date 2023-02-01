@@ -14,7 +14,6 @@ const Shop = observer(() => {
   const { user, product } = useContext(Context)
   const [isCategoriesLoading, setIsCategoriesIsLoading] = useState(true)
   const [isBrandsLoading, setIsBrandsIsLoading] = useState(true)
-  const [isProductsLoading, setIsProductsLoading] = useState(true)
 
   const [p, setP] = useState(3)
 
@@ -34,16 +33,16 @@ const Shop = observer(() => {
     fetchProducts(null, null, 1, product.limit)
       .then(data => {
         product.setProducts(data)
-        setIsProductsLoading(false)
-        // product.setTotalCount(data.length)
+        product.setIsProductsLoading(false)
+        product.setTotalCount(data.length)
       })
   }, [])
 
   useEffect(() => {
-    fetchProducts(product.selectedCategory.id, product.selectedBrand.id, product.page, product.limit)
+    fetchProducts(product.selectedCategory, product.selectedBrands, product.page, product.limit)
       .then(data => {
         product.setProducts(data)
-        // product.setTotalCount(data.length)
+        product.setTotalCount(data.length)
       })
   }, [product.page, product.limit, product.selectedCategory, product.selectedBrand])
 
@@ -75,8 +74,8 @@ const Shop = observer(() => {
                       <FilterBar isCategoriesLoading={isCategoriesLoading} isBrandsLoading={isBrandsLoading} />
                   </Col>
                   <Col md={9} className={`p-${p}`}>
-                      <SortBar setIsProductsLoading={setIsProductsLoading} />
-                      <ProductList isProductsLoading={isProductsLoading} />
+                      <SortBar setIsProductsLoading={product.setIsProductsLoading} />
+                      <ProductList isProductsLoading={product.isProductsLoading} />
                       <Pages />
                   </Col>
               </Row>

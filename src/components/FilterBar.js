@@ -29,11 +29,11 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
     }
   }, [product.brands])
 
-  const chooseCatalog = (e, brand) => {
+  const checkBrand = (e, brand) => {
     if (e.target.checked) {
-      product.setCatalogToDisplay([...product.catalogToDisplay, brand])
+      product.setSelectedBrands([...product.selectedBrands, brand])
     } else {
-      product.setCatalogToDisplay(product.catalogToDisplay.filter(catalogItemToDisplay => brand.id !== catalogItemToDisplay.id))
+      product.setSelectedBrands(product.selectedBrands.filter(brandToDisplay => brand.id !== brandToDisplay.id))
     }
   }
 
@@ -67,8 +67,8 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
                         : product.brands.map(brand => {
                           return (
                             product.catalogToDisplay.map(brand => brand.name).includes(brand.name)
-                              ? <Form.Check onClick={(e) => chooseCatalog(e, brand)} key={brand.id} label={brand.name} className="filterBarChecked" style={{ fontSize: '1.1rem' }} />
-                              : <Form.Check onClick={(e) => chooseCatalog(e, brand)} key={brand.id} label={brand.name} />
+                              ? <Form.Check onClick={(e) => checkBrand(e, brand)} key={brand.id} label={brand.name} className="filterBarChecked" style={{ fontSize: '1.1rem' }} />
+                              : <Form.Check onClick={(e) => checkBrand(e, brand)} key={brand.id} label={brand.name} />
                           )
                         })
                   }

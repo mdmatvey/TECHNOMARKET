@@ -8,19 +8,6 @@ import SkeletonProduct from './skeleton_components/SkeletonProduct'
 const ProductList = observer(({ isProductsLoading }) => {
   const { user, product } = useContext(Context)
 
-  useEffect(() => {
-    if (product.catalogToDisplay.length === 0) {
-      product.setCurrentProducts(product.products)
-      return
-    }
-
-    const catalogToDisplay = product.catalogToDisplay.map(brand => brand.name)
-
-    if (product.products.length !== undefined) {
-      product.setCurrentProducts(product.products.filter(product => catalogToDisplay.includes(product.brand)))
-    }
-  }, [product.products, product.catalogToDisplay])
-
   const [columns, setColumns] = useState(4)
 
   useEffect(() => {
@@ -42,8 +29,8 @@ const ProductList = observer(({ isProductsLoading }) => {
               {
                   isProductsLoading
                     ? <SkeletonProduct products={4} />
-                    : product.currentProducts.length !== undefined
-                      ? product.currentProducts.map(product =>
+                    : product.products.length !== undefined
+                      ? product.products.map(product =>
                           <Product key={product.key} item={product} />
                       )
                       : null
@@ -54,8 +41,8 @@ const ProductList = observer(({ isProductsLoading }) => {
               {
                   isProductsLoading
                     ? <SkeletonProduct products={4} />
-                    : product.currentProducts.length !== undefined
-                      ? product.currentProducts.map(product =>
+                    : product.products.length !== undefined
+                      ? product.products.map(product =>
                           <Product key={product.key} item={product} />
                       )
                       : null

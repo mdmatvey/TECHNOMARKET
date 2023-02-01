@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useContext, useState } from 'react'
 import { Context } from '../index'
-import { Breadcrumb, Button, Row, Form, Container } from 'react-bootstrap'
+import { Breadcrumb, Row, Form, Container } from 'react-bootstrap'
 import Item from '../components/Item'
 import { fetchBrands } from '../components/http/productAPI'
 import SkeletonItem from '../components/skeleton_components/SkeletonItem'
@@ -10,11 +10,15 @@ import { PRIMARY_COLOR } from '../utils/uiConsts'
 import { ImHome3 } from 'react-icons/im'
 import { TiThSmall } from 'react-icons/ti'
 
-const Brands = observer(({ purpose }) => {
+const Brands = observer(() => {
   const { product, user } = useContext(Context)
 
   const [isLoading, setIsLoading] = useState(true)
+
   const [md, setMd] = useState(4)
+
+  const [query, setQuery] = useState('')
+  const [brandsToDisplay, setBrandsToDisplay] = useState(product.brands)
 
   useEffect(() => {
     fetchBrands()
@@ -23,6 +27,15 @@ const Brands = observer(({ purpose }) => {
         setIsLoading(false)
       })
   }, [])
+
+  useEffect(() => {
+    console.log(query)
+    if (query.length !== 0) {
+      setBrandsToDisplay(product.brands.filter(brand => brand.name.includes(query)))
+    } else {
+      setBrandsToDisplay(product.brands)
+    }
+  }, [query])
 
   useEffect(() => {
     if (user.userWidth < 992) {
@@ -65,19 +78,20 @@ const Brands = observer(({ purpose }) => {
               </h1>
               <Form className="d-flex" style={{ display: 'block', margin: '0 auto', width: '50%' }}>
                   <Form.Control
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
                       type="search"
                       placeholder={'Поиск по брендам'}
                       className="me-2"
                       aria-label="Search"
                   />
-                  <Button variant="outline-success">Поиск</Button>
               </Form>
               <Row md={md}>
                   {
                       isLoading
                         ? <SkeletonItem items={8} />
-                        : product.brands.map(item =>
-                              <Item key={item.key} path={item} />
+                        : brandsToDisplay.map(item =>
+                            <Item key={item.key} path={item} />
                         )
                   }
               </Row>
