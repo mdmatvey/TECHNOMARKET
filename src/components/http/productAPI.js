@@ -1,9 +1,4 @@
-// import { $authHost, $host } from "./index";
-import jwt_decode from 'jwt-decode'
-
 export const createCategory = async (category) => {
-  // const {data} = await $authHost.post('api/type', category);
-
   fetch('https://api.storerestapi.com/categories',
     {
       method: 'POST',
@@ -16,13 +11,9 @@ export const createCategory = async (category) => {
     })
     .then(response => response.json())
     .then(json => console.log(json))
-
-  // return data
 }
 
 export const fetchCategories = async () => {
-  // const {data} = await $host.get('api/type');
-
   const response = await fetch('https://fakestoreapi.com/products/categories')
   const responseJSON = await response.json()
 
@@ -38,13 +29,9 @@ export const fetchCategories = async () => {
   })
 
   return responseObj
-
-  // return data
 }
 
 export const createBrand = async (brand) => {
-  // const {data} = await $authHost.post('api/brand', brand);
-
   fetch('https://api.storerestapi.com/categories',
     {
       method: 'POST',
@@ -60,13 +47,9 @@ export const createBrand = async (brand) => {
       json.message = 'Success! Brand created'
       console.log(json)
     })
-
-  // return data
 }
 
 export const fetchBrands = async () => {
-  // const {data} = await $host.get('api/brand');
-
   const response = await fetch('https://fakestoreapi.com/products/categories')
   let responseJSON = await response.json()
 
@@ -82,13 +65,9 @@ export const fetchBrands = async () => {
   })
 
   return responseObj
-
-  // return data
 }
 
 export const createProduct = async (product) => {
-  // const {data} = await $authHost.post('api/product', product);
-
   fetch('https://api.storerestapi.com/products',
     {
       method: 'POST',
@@ -99,15 +78,9 @@ export const createProduct = async (product) => {
     })
     .then(response => response.json())
     .then(json => console.log(json))
-
-  // return data
 }
 
 export const fetchProducts = async (categoryId, brandId, page, limit = 8) => {
-  // const {data} = await $host.get('api/product', {params: {
-  //     categoryId, brandId, page, limit
-  // }});
-
   const response = await fetch('https://fakestoreapi.com/products?limit=' + limit)
   const responseJSON = await response.json()
   responseJSON.map(product => {
@@ -116,20 +89,14 @@ export const fetchProducts = async (categoryId, brandId, page, limit = 8) => {
   })
 
   return responseJSON
-
-  // return data
 }
 
 export const fetchOneProduct = async (id) => {
-  // const {data} = await $host.get('api/product/' + id);
-
   const response = await fetch('https://fakestoreapi.com/products/' + id)
   const responseJSON = await response.json()
   responseJSON.count = 1
 
   return responseJSON
-
-  // return data
 }
 
 export const fetchSortProductsPrice = async (order) => {
