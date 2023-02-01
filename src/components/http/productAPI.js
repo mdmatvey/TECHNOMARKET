@@ -131,3 +131,17 @@ export const fetchOneProduct = async (id) => {
 
   // return data
 }
+
+export const fetchSortProductsPrice = async (order) => {
+  const response = await fetch(`https://fakestoreapi.com/products?sort=${order}`)
+  const responseJSON = await response.json()
+
+  return responseJSON
+}
+
+export const fetchSortProductsPopularity = async (order) => {
+  const response = await fetch(`https://fakestoreapi.com/products?sort=${order}`)
+  const responseJSON = await response.json()
+
+  return responseJSON
+}
