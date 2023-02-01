@@ -36,20 +36,28 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
 
   const itemsOnPage = (e, num) => {
     product.setLimit(num)
-    document.getElementById('four').style.color = 'gray'
-    document.getElementById('eight').style.color = 'gray'
-    document.getElementById('twelve').style.color = 'gray'
-    document.getElementById('all').style.color = 'gray'
-    e.target.style.color = '#fff'
+
+    let color = ''
+    if (dropdown) {
+      color = '#000'
+    } else {
+      color = '#fff'
+    }
+
+    document.getElementById('four').style.color = color
+    document.getElementById('eight').style.color = color
+    document.getElementById('twelve').style.color = color
+    document.getElementById('all').style.color = color
+    e.target.style.color = 'gray'
   }
 
   const listType = (bool, element1, element2) => {
     product.setDisplayGrid(bool)
-    element2.style.color = 'gray'
+    element1.style.color = 'gray'
     if (dropdown) {
-      element1.style.color = '#000'
+      element2.style.color = '#000'
     } else {
-      element1.style.color = '#fff'
+      element2.style.color = '#fff'
     }
   }
 
@@ -60,11 +68,11 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
 
   const priceSort = () => {
     if (dropdown) {
-      document.getElementById('popularity-dropdown').style.color = 'gray'
-      document.getElementById('price-dropdown').style.color = '#000'
+      document.getElementById('popularity-dropdown').style.color = '#000'
+      document.getElementById('price-dropdown').style.color = 'gray'
     } else {
-      document.getElementById('popularity').style.color = 'gray'
-      document.getElementById('price').style.color = '#fff'
+      document.getElementById('popularity').style.color = '#fff'
+      document.getElementById('price').style.color = 'gray'
     }
 
     if (i + 1 === 2) {
@@ -96,11 +104,11 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
 
   const popularitySort = () => {
     if (dropdown) {
-      document.getElementById('popularity-dropdown').style.color = '#000'
-      document.getElementById('price-dropdown').style.color = 'gray'
+      document.getElementById('popularity-dropdown').style.color = '#gray'
+      document.getElementById('price-dropdown').style.color = '#000'
     } else {
-      document.getElementById('popularity').style.color = '#fff'
-      document.getElementById('price').style.color = 'gray'
+      document.getElementById('popularity').style.color = 'gray'
+      document.getElementById('price').style.color = '#fff'
     }
 
     if (j + 1 === 2) {
@@ -140,7 +148,7 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                                 <Dropdown.Item>
                                     <Button
                                         onClick={() => priceSort()}
-                                        style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
+                                        style={{ ...TEXTBUTTON_STYLE, color: '#000' }}
                                         id='price-dropdown'
                                     >
                                         цена <BsCaretDownFill style={{ ...priceCaretDownDisplay, fontSize: '1rem' }} /> <BsCaretUpFill style={{ ...priceCaretUpDisplay, fontSize: '1rem' }} />
@@ -149,7 +157,7 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                                 <Dropdown.Item>
                                     <Button
                                         onClick={() => popularitySort()}
-                                        style={{ ...TEXTBUTTON_STYLE, color: '#000' }}
+                                        style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
                                         id='popularity-dropdown'
                                     >
                                         популярность <BsCaretDownFill style={{ ...popularityCaretDownDisplay, fontSize: '1rem' }} /> <BsCaretUpFill style={{ ...popularityCaretUpDisplay, fontSize: '1rem' }} />
@@ -170,7 +178,7 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                                     <Button
                                         onClick={(e) => itemsOnPage(e, 8)}
                                         id="eight"
-                                        style={{ ...TEXTBUTTON_STYLE, color: '#000', fontWeight: 'bold' }}
+                                        style={{ ...TEXTBUTTON_STYLE, color: '#000', color: 'gray' }}
                                     >
                                         8
                                     </Button>
@@ -197,12 +205,12 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                             <DropdownButton title="Вид">
                                 <Dropdown.Item>
                                     <Button onClick={(e) => listType(true, document.getElementById('grid'), document.getElementById('list'))} style={TEXTBUTTON_STYLE}>
-                                        <TiThLarge id="grid" style={{ color: 'black' }} />
+                                        <TiThLarge id="grid" style={{ color: 'gray' }} />
                                     </Button>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
                                     <Button onClick={(e) => listType(false, document.getElementById('list'), document.getElementById('grid'))} style={TEXTBUTTON_STYLE}>
-                                        <TiThList id="list" style={{ color: 'gray' }} />
+                                        <TiThList id="list" style={{ color: '#000' }} />
                                     </Button>
                                 </Dropdown.Item>
                         </DropdownButton>
@@ -212,14 +220,14 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                                 Сортировать по:
                                 <Button
                                     onClick={() => priceSort()}
-                                    style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
+                                    style={TEXTBUTTON_STYLE}
                                     id='price'
                                 >
                                     цена <BsCaretDownFill style={{ ...priceCaretDownDisplay, fontSize: '1rem' }} /> <BsCaretUpFill style={{ ...priceCaretUpDisplay, fontSize: '1rem' }} />
                                 </Button>
                                 <Button
                                     onClick={() => popularitySort()}
-                                    style={TEXTBUTTON_STYLE}
+                                    style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
                                     id='popularity'
                                 >
                                     популярность <BsCaretDownFill style={{ ...popularityCaretDownDisplay, fontSize: '1rem' }} /> <BsCaretUpFill style={{ ...popularityCaretUpDisplay, fontSize: '1rem' }} />
@@ -230,28 +238,28 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                                 <Button
                                     onClick={(e) => itemsOnPage(e, 4)}
                                     id="four"
-                                    style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
+                                    style={{ ...TEXTBUTTON_STYLE, color: '#fff' }}
                                 >
                                     4
                                 </Button>
                                 <Button
                                     onClick={(e) => itemsOnPage(e, 8)}
                                     id="eight"
-                                    style={{ ...TEXTBUTTON_STYLE, color: '#fff' }}
+                                    style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
                                 >
                                     8
                                 </Button>
                                 <Button
                                     onClick={(e) => itemsOnPage(e, 12)}
                                     id="twelve"
-                                    style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
+                                    style={{ ...TEXTBUTTON_STYLE, color: '#fff' }}
                                 >
                                     12
                                 </Button>
                                 <Button
                                     onClick={(e) => itemsOnPage(e, 20)}
                                     id="all"
-                                    style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
+                                    style={{ ...TEXTBUTTON_STYLE, color: '#fff' }}
                                 >
                                     Все
                                 </Button>
@@ -259,10 +267,10 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                             <span className='d-flex align-items-baseline'>
                                 Вид:
                                 <Button onClick={(e) => listType(true, document.getElementById('grid'), document.getElementById('list'))} style={TEXTBUTTON_STYLE}>
-                                    <TiThLarge id="grid" style={{ transition: '0.25s' }} />
+                                    <TiThLarge id="grid" style={{ color: 'gray', transition: '0.25s' }} />
                                 </Button>
                                 <Button onClick={(e) => listType(false, document.getElementById('list'), document.getElementById('grid'))} style={TEXTBUTTON_STYLE}>
-                                    <TiThList id="list" style={{ color: 'gray', transition: '0.25s' }} />
+                                    <TiThList id="list" style={{ transition: '0.25s' }} />
                                 </Button>
                             </span>
                         </div>
