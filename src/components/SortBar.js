@@ -3,10 +3,15 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, Dropdown, DropdownButton, Row } from 'react-bootstrap'
 import { Context } from '..'
 import { TEXTBUTTON_STYLE } from '../utils/uiConsts'
+import { fetchSortProductsPrice, fetchSortProductsPopularity } from './http/productAPI'
 import { TiThList, TiThLarge } from 'react-icons/ti'
+import { BsCaretDownFill, BsCaretUpFill } from 'react-icons/bs'
 import SortBarStyles from '../styles/SortBarStyles.css'
 
-const SortdBar = observer(() => {
+let i = 1
+let j = 1
+
+const SortdBar = observer(({ setIsProductsLoading }) => {
   const { user, product } = useContext(Context)
 
   const [dropdown, setDropdown] = useState(false)
@@ -31,11 +36,11 @@ const SortdBar = observer(() => {
 
   const itemsOnPage = (e, num) => {
     product.setLimit(num)
-    document.getElementById('four').style.fontWeight = 'normal'
-    document.getElementById('eight').style.fontWeight = 'normal'
-    document.getElementById('twelve').style.fontWeight = 'normal'
-    document.getElementById('all').style.fontWeight = 'normal'
-    e.target.style.fontWeight = 'bold'
+    document.getElementById('four').style.color = 'gray'
+    document.getElementById('eight').style.color = 'gray'
+    document.getElementById('twelve').style.color = 'gray'
+    document.getElementById('all').style.color = 'gray'
+    e.target.style.color = '#fff'
   }
 
   const listType = (bool, element1, element2) => {
@@ -45,6 +50,73 @@ const SortdBar = observer(() => {
       element1.style.color = '#000'
     } else {
       element1.style.color = '#fff'
+    }
+  }
+
+  const [priceCaretUpDisplay, setPrcieCaretUpDisplay] = useState({ display: 'none' })
+  const [priceCaretDownDisplay, setPrcieCaretDownDisplay] = useState({ display: 'none' })
+  const [popularityCaretUpDisplay, setPopularityCaretUpDisplay] = useState({ display: 'none' })
+  const [popularityCaretDownDisplay, setPopularityCaretDownDisplay] = useState({ display: 'inline-block' })
+
+  const priceSort = () => {
+    document.getElementById('popularity').style.color = 'gray'
+    document.getElementById('price').style.color = '#fff'
+
+    if (i + 1 === 2) {
+      i++
+      setIsProductsLoading(true)
+      fetchSortProductsPrice('desc')
+        .then(data => {
+          product.setProducts(data)
+          setIsProductsLoading(false)
+        })
+      setPrcieCaretDownDisplay({ display: 'inline-block' })
+      setPrcieCaretUpDisplay({ display: 'none' })
+      setPopularityCaretDownDisplay({ display: 'none' })
+      setPopularityCaretUpDisplay({ display: 'none' })
+    } else if (i + 1 === 3) {
+      i = 1
+      setIsProductsLoading(true)
+      fetchSortProductsPrice('asc')
+        .then(data => {
+          product.setProducts(data)
+          setIsProductsLoading(false)
+        })
+      setPrcieCaretDownDisplay({ display: 'none' })
+      setPrcieCaretUpDisplay({ display: 'inline-block' })
+      setPopularityCaretDownDisplay({ display: 'none' })
+      setPopularityCaretUpDisplay({ display: 'none' })
+    }
+  }
+
+  const popularitySort = () => {
+    document.getElementById('price').style.color = 'gray'
+    document.getElementById('popularity').style.color = '#fff'
+
+    if (j + 1 === 2) {
+      j++
+      setIsProductsLoading(true)
+      fetchSortProductsPopularity('desc')
+        .then(data => {
+          product.setProducts(data)
+          setIsProductsLoading(false)
+        })
+      setPrcieCaretDownDisplay({ display: 'none' })
+      setPrcieCaretUpDisplay({ display: 'none' })
+      setPopularityCaretDownDisplay({ display: 'inline-block' })
+      setPopularityCaretUpDisplay({ display: 'none' })
+    } else if (j + 1 === 3) {
+      j = 1
+      setIsProductsLoading(true)
+      fetchSortProductsPopularity('asc')
+        .then(data => {
+          product.setProducts(data)
+          setIsProductsLoading(false)
+        })
+      setPrcieCaretDownDisplay({ display: 'none' })
+      setPrcieCaretUpDisplay({ display: 'none' })
+      setPopularityCaretDownDisplay({ display: 'none' })
+      setPopularityCaretUpDisplay({ display: 'inline-block' })
     }
   }
 
@@ -119,36 +191,48 @@ const SortdBar = observer(() => {
                       : <div className='d-flex justify-content-between w-100'>
                             <span className='d-flex align-items-baseline'>
                                 Сортировать по:
-                                <Button style={TEXTBUTTON_STYLE}>цена</Button>
-                                <Button style={TEXTBUTTON_STYLE} >популярность</Button>
+                                <Button
+                                    onClick={() => priceSort()}
+                                    style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
+                                    id='price'
+                                >
+                                    цена <BsCaretDownFill style={{ ...priceCaretDownDisplay, fontSize: '1rem' }} /> <BsCaretUpFill style={{ ...priceCaretUpDisplay, fontSize: '1rem' }} />
+                                </Button>
+                                <Button
+                                    onClick={() => popularitySort()}
+                                    style={TEXTBUTTON_STYLE}
+                                    id='popularity'
+                                >
+                                    популярность <BsCaretDownFill style={{ ...popularityCaretDownDisplay, fontSize: '1rem' }} /> <BsCaretUpFill style={{ ...popularityCaretUpDisplay, fontSize: '1rem' }} />
+                                </Button>
                             </span>
                             <span className="d-flex align-items-center">
                                 На странице:
                                 <Button
                                     onClick={(e) => itemsOnPage(e, 4)}
                                     id="four"
-                                    style={TEXTBUTTON_STYLE}
+                                    style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
                                 >
                                     4
                                 </Button>
                                 <Button
                                     onClick={(e) => itemsOnPage(e, 8)}
                                     id="eight"
-                                    style={{ ...TEXTBUTTON_STYLE, fontWeight: 'bold' }}
+                                    style={{ ...TEXTBUTTON_STYLE, color: '#fff' }}
                                 >
                                     8
                                 </Button>
                                 <Button
                                     onClick={(e) => itemsOnPage(e, 12)}
                                     id="twelve"
-                                    style={TEXTBUTTON_STYLE}
+                                    style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
                                 >
                                     12
                                 </Button>
                                 <Button
                                     onClick={(e) => itemsOnPage(e, 20)}
                                     id="all"
-                                    style={TEXTBUTTON_STYLE}
+                                    style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
                                 >
                                     Все
                                 </Button>
@@ -156,10 +240,10 @@ const SortdBar = observer(() => {
                             <span className='d-flex align-items-baseline'>
                                 Вид:
                                 <Button onClick={(e) => listType(true, document.getElementById('grid'), document.getElementById('list'))} style={TEXTBUTTON_STYLE}>
-                                    <TiThLarge id="grid" />
+                                    <TiThLarge id="grid" style={{ transition: '0.25s' }} />
                                 </Button>
                                 <Button onClick={(e) => listType(false, document.getElementById('list'), document.getElementById('grid'))} style={TEXTBUTTON_STYLE}>
-                                    <TiThList id="list" style={{ color: 'gray' }} />
+                                    <TiThList id="list" style={{ color: 'gray', transition: '0.25s' }} />
                                 </Button>
                             </span>
                         </div>
