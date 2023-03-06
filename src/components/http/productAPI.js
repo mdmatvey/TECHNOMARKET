@@ -112,3 +112,10 @@ export const fetchSortProductsPopularity = async (order) => {
 
   return responseJSON
 }
+
+export const searchProducts = async (searchQuery) => {
+  const response = await fetch('https://fakestoreapi.com/products?query=' + searchQuery)
+  const responseJSON = await response.json()
+
+  return responseJSON
+}

@@ -8,11 +8,23 @@ import { TEXTBUTTON_STYLE } from '../utils/uiConsts'
 import { BsFillTelephoneFill } from 'react-icons/bs'
 import { IoIosMail } from 'react-icons/io'
 import { Context } from '..'
-import BrandBarStyles from '../styles/BrandBarStyles.css'
+import '../styles/BrandBarStyles.css'
 
 const BrandBar = observer(() => {
   const { user } = useContext(Context)
   const navigate = useNavigate()
+
+  const [query, setQuery] = useState('')
+
+  const searchAPI = searchQuery => {
+    window.scrollTo(0, 0)
+    navigate(SHOP_ROUTE, {
+      state: {
+        searchQuery
+      }
+    })
+    setQuery('')
+  }
 
   const [outerFlexDirection, setOuterFlexDirection] = useState('flex-row')
   const [innerFlexDirection, setInnerFlexDirection] = useState('flex-row')
@@ -52,12 +64,19 @@ const BrandBar = observer(() => {
                 <Image src={Logo} onClick={() => navigate(SHOP_ROUTE)} id='logo' style={{ cursor: 'pointer' }} />
                 <Form className="d-flex" id='searchbar'>
                     <Form.Control
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
                         type="search"
                         placeholder="Search"
                         className="me-2"
                         aria-label="Search"
                     />
-                    <Button variant="outline-success">Search</Button>
+                    <Button
+                        onClick={() => searchAPI(query)}
+                        variant="outline-success"
+                    >
+                        Искать
+                    </Button>
                 </Form>
             </Container>
             <Container className={`d-flex ${outerFlexDirection} justify-content-between mt-3`}>
