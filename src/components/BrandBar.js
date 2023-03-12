@@ -11,10 +11,10 @@ import { Context } from '..'
 import '../styles/BrandBarStyles.css'
 
 const BrandBar = observer(() => {
-  const { user } = useContext(Context)
   const navigate = useNavigate()
+  const { user } = useContext(Context)
 
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState('123')
 
   const searchAPI = searchQuery => {
     window.scrollTo(0, 0)
