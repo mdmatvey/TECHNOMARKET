@@ -27,7 +27,7 @@ const Shop = observer(() => {
     fetchBrands()
       .then(data => {
         product.setBrands(data)
-        setIsBrandsIsLoading(false)
+        // setIsBrandsIsLoading(false)
       })
 
     fetchProducts(null, null, 1, product.limit)

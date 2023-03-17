@@ -15,23 +15,8 @@ export const fetchBrands = async () => {
 }
 
 // ПОЛУЧИТЬ ПРОДУКТЫ
-export const fetchProducts = async (categoryID, brands, page, limit = 8) => {
-  const data = {
-    categoryID, // [number] - id категории товары которой нужно получить
-    brands, // [array] - массив из id брендов товары которых нужно получить
-    page, // [number] - текущая страница
-    limit // [number] - количество товаров на странице пагинации
-  }
-
-  const options = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }
-
-  const response = await fetch('https://fakestoreapi.com/products/', options) // URL API АДРЕСА
+export const fetchProducts = async (subCategoryID, brands, page, limit = 8) => {
+  const response = await fetch(`https://fakestoreapi.com/products/?subCategoryID=${subCategoryID}&brands=${brands}&limit=${limit}&page=${page}`) // URL API АДРЕСА
   const responseJSON = await response.json()
 
   return responseJSON

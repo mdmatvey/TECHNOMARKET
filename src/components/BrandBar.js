@@ -9,7 +9,7 @@ import { BsFillTelephoneFill } from 'react-icons/bs'
 import { IoIosMail } from 'react-icons/io'
 import { Context } from '..'
 import { fetchFoundProducts } from './http/productAPI'
-import BrandBarStyles from '../styles/BrandBarStyles.css'
+import '../styles/BrandBarStyles.css'
 
 const BrandBar = observer(() => {
   const { user, product } = useContext(Context)
