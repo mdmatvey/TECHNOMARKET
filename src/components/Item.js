@@ -17,7 +17,7 @@ const Item = ({ path }) => {
       product.setSelectedBrands([...product.selectedBrands, path])
     }
 
-    navigate(SHOP_ROUTE)
+    navigate(SHOP_ROUTE, { state: { firstRender: false } })
   }
 
   return (
@@ -31,14 +31,14 @@ const Item = ({ path }) => {
             followBrand={followBrand}
           />
             <Card
-                style={{ display: 'block', margin: '0 auto', width: 250, height: 260, cursor: 'pointer', textAlign: 'center', boxShadow: '0px 0px 8px 3px rgba(99, 99, 99, 0.2)' }}
+                style={{ display: 'block', margin: '0 auto', width: 250, height: 300, cursor: 'pointer', textAlign: 'center', boxShadow: '0px 0px 8px 3px rgba(99, 99, 99, 0.2)' }}
                 border={'light'}
                 onClick={() => {
                   setModalShow(true)
                 }}
             >
                 <Image width={'100%'} height={'80%'} style={{ objectFit: 'cover', marginLeft: 'auto', marginRight: 'auto' }} src={path.image} />
-                <h4 style={{ marginTop: 10 }}>{path.name}</h4>
+                <h5 style={{ marginTop: 10 }}>{path.name}</h5>
             </Card>
         </Col>
   )

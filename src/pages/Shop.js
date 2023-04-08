@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Breadcrumb, Col, Container, Row } from 'react-bootstrap'
 import { Context } from '..'
 import SortBar from '../components/SortBar'
@@ -10,7 +10,15 @@ import ProductList from '../components/ProductList'
 import FilterBar from '../components/FilterBar'
 import { ImHome3 } from 'react-icons/im'
 
+let firstRender
+
 const Shop = observer(() => {
+  const location = useLocation()
+
+  useEffect(() => {
+    firstRender = location.state ? location.state.firstRender : true
+  }, [])
+
   const { user, product } = useContext(Context)
   const [isCategoriesLoading, setIsCategoriesIsLoading] = useState(true)
   const [isBrandsLoading, setIsBrandsIsLoading] = useState(true)
@@ -30,12 +38,14 @@ const Shop = observer(() => {
         setIsBrandsIsLoading(false)
       })
 
-    fetchProducts(null, null, null, product.page, product.limit)
-      .then(data => {
-        product.setProducts(data)
-        product.setIsProductsLoading(false)
-        product.setTotalCount(data.count)
-      })
+    if (firstRender) {
+      fetchProducts(null, null, null, product.page, product.limit)
+        .then(data => {
+          product.setProducts(data.results)
+          product.setIsProductsLoading(false)
+          product.setTotalCount(data.count)
+        })
+    }
   }, [])
 
   useEffect(() => {
