@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Context } from '../index'
 import { Accordion, Card, Form } from 'react-bootstrap'
 import Skeleton from 'react-loading-skeleton'
@@ -7,21 +7,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import '../styles/FilterBarStyles.css'
 
 const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
-  const { user, product } = useContext(Context)
-
-  const [columns, setColumns] = useState(2)
-
-  useEffect(() => {
-    if (user.userWidth < 360) {
-      setColumns(1)
-    } else if (user.userWidth < 768) {
-      setColumns(2)
-    } else if (user.userWidth < 992) {
-      setColumns(1)
-    } else if (user.userWidth >= 992) {
-      setColumns(2)
-    }
-  }, [user.userWidth])
+  const { product } = useContext(Context)
 
   useEffect(() => {
     if (document.getElementsByClassName('filterBarChecked')[0]) {
@@ -90,20 +76,23 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
             <hr />
             <div className='p-3'>
               <span style={{ fontSize: '1.75rem', fontWeight: 'bold' }} className='filterCategory'>Бренды:</span>
-              <Form className='mt-2' style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, width: '100%', background: '#fff' }}>
+              <Form className='mt-2' style={{ display: 'grid', gridTemplateColumns: '1fr', width: '100%', height: 300, overflowY: 'scroll', background: '#fff' }}>
                   {
                       isBrandsLoading
                         ? <>
                               <Skeleton count={4} style={{ width: '80%' }} />
-                              <Skeleton count={4} style={{ width: '80%' }} />
                           </>
                         : product.brands.map(brand => {
                           return (
-                            product.selectedBrands
-                              ? product.selectedBrands.map(brand => brand.name).includes(brand.name)
-                                ? <Form.Check onClick={(e) => checkBrand(e, brand)} key={brand.id} label={brand.name.length > 7 ? brand.name.slice(0, 7) + '...' : brand.name} className="filterBarChecked" style={{ fontSize: '1.1rem' }} />
-                                : <Form.Check onClick={(e) => checkBrand(e, brand)} key={brand.id} label={brand.name.length > 7 ? brand.name.slice(0, 7) + '...' : brand.name} />
-                              : <Form.Check onClick={(e) => checkBrand(e, brand)} key={brand.id} label={brand.name.length > 7 ? brand.name.slice(0, 7) + '...' : brand.name} />
+                            <>
+                              {
+                                product.selectedBrands
+                                  ? product.selectedBrands.map(brand => brand.name).includes(brand.name)
+                                    ? <Form.Check onClick={(e) => checkBrand(e, brand)} key={brand.id} label={brand.name.length > 20 ? brand.name.slice(0, 20) + '...' : brand.name} className="filterBarChecked" style={{ fontSize: '1.1rem' }} />
+                                    : <Form.Check onClick={(e) => checkBrand(e, brand)} key={brand.id} label={brand.name.length > 20 ? brand.name.slice(0, 20) + '...' : brand.name} />
+                                  : <Form.Check onClick={(e) => checkBrand(e, brand)} key={brand.id} label={brand.name.length > 20 ? brand.name.slice(0, 20) + '...' : brand.name} />
+                              }
+                            </>
                           )
                         })
                   }
