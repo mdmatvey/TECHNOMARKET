@@ -36,10 +36,9 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
 
   const itemsOnPage = (e, num) => {
     product.setLimit(num)
-    document.getElementById('four').style.color = 'gray'
-    document.getElementById('eight').style.color = 'gray'
     document.getElementById('twelve').style.color = 'gray'
-    document.getElementById('all').style.color = 'gray'
+    document.getElementById('twenty_four').style.color = 'gray'
+    document.getElementById('forty_eight').style.color = 'gray'
     e.target.style.color = '#fff'
   }
 
@@ -159,24 +158,6 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                             <DropdownButton title="На странице">
                                 <Dropdown.Item>
                                     <Button
-                                        onClick={(e) => itemsOnPage(e, 4)}
-                                        id="four"
-                                        style={{ ...TEXTBUTTON_STYLE, color: '#000' }}
-                                    >
-                                        4
-                                    </Button>
-                                </Dropdown.Item>
-                                <Dropdown.Item>
-                                    <Button
-                                        onClick={(e) => itemsOnPage(e, 8)}
-                                        id="eight"
-                                        style={{ ...TEXTBUTTON_STYLE, color: '#000', fontWeight: 'bold' }}
-                                    >
-                                        8
-                                    </Button>
-                                </Dropdown.Item>
-                                <Dropdown.Item>
-                                    <Button
                                         onClick={(e) => itemsOnPage(e, 12)}
                                         id="twelve"
                                         style={{ ...TEXTBUTTON_STYLE, color: '#000' }}
@@ -186,11 +167,20 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                                 </Dropdown.Item>
                                 <Dropdown.Item>
                                     <Button
-                                        onClick={(e) => itemsOnPage(e, 20)}
-                                        id="all"
+                                        onClick={(e) => itemsOnPage(e, 24)}
+                                        id="twenty_four"
+                                        style={{ ...TEXTBUTTON_STYLE, color: '#000', fontWeight: 'bold' }}
+                                    >
+                                        24
+                                    </Button>
+                                </Dropdown.Item>
+                                <Dropdown.Item>
+                                    <Button
+                                        onClick={(e) => itemsOnPage(e, 48)}
+                                        id="forty_eight"
                                         style={{ ...TEXTBUTTON_STYLE, color: '#000' }}
                                     >
-                                        Все
+                                        48
                                     </Button>
                                 </Dropdown.Item>
                             </DropdownButton>
@@ -228,20 +218,6 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                             <span className="d-flex align-items-center">
                                 На странице:
                                 <Button
-                                    onClick={(e) => itemsOnPage(e, 4)}
-                                    id="four"
-                                    style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
-                                >
-                                    4
-                                </Button>
-                                <Button
-                                    onClick={(e) => itemsOnPage(e, 8)}
-                                    id="eight"
-                                    style={{ ...TEXTBUTTON_STYLE, color: '#fff' }}
-                                >
-                                    8
-                                </Button>
-                                <Button
                                     onClick={(e) => itemsOnPage(e, 12)}
                                     id="twelve"
                                     style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
@@ -249,11 +225,18 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                                     12
                                 </Button>
                                 <Button
-                                    onClick={(e) => itemsOnPage(e, 20)}
-                                    id="all"
+                                    onClick={(e) => itemsOnPage(e, 24)}
+                                    id="twenty_four"
+                                    style={{ ...TEXTBUTTON_STYLE, color: '#fff' }}
+                                >
+                                    24
+                                </Button>
+                                <Button
+                                    onClick={(e) => itemsOnPage(e, 48)}
+                                    id="forty_eight"
                                     style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
                                 >
-                                    Все
+                                    48
                                 </Button>
                             </span>
                             <span className='d-flex align-items-baseline'>

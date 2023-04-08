@@ -27,24 +27,35 @@ const Shop = observer(() => {
     fetchBrands()
       .then(data => {
         product.setBrands(data)
-        // setIsBrandsIsLoading(false)
+        setIsBrandsIsLoading(false)
       })
 
-    fetchProducts(null, null, 1, product.limit)
+    fetchProducts(null, null, null, product.page, product.limit)
       .then(data => {
         product.setProducts(data)
         product.setIsProductsLoading(false)
-        product.setTotalCount(data.length)
+        product.setTotalCount(data.count)
       })
   }, [])
 
   useEffect(() => {
-    fetchProducts(product.selectedCategory, product.selectedBrands, product.page, product.limit)
+    let category = null
+    let brands = null
+
+    if (product.selectedCategory.length > 0) {
+      category = product.selectedCategory
+    }
+
+    if (product.selectedBrands.length > 0) {
+      brands = product.selectedBrands.map(brand => brand.name)
+    }
+
+    fetchProducts(null, category, brands, product.page, product.limit)
       .then(data => {
-        product.setProducts(data)
-        product.setTotalCount(data.length)
+        product.setProducts(data.results)
+        product.setTotalCount(data.count)
       })
-  }, [product.page, product.limit, product.selectedCategory, product.selectedBrand])
+  }, [product.page, product.limit, product.selectedCategory, product.selectedBrands])
 
   useEffect(() => {
     if (user.userWidth < 768) {

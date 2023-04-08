@@ -6,12 +6,12 @@ export default class ProductStore {
     this._brands = []
     this._products = []
     this._isProductsLoading = true
-    this._selectedCategory = {}
-    this._selectedBrands = {}
+    this._selectedCategory = []
+    this._selectedBrands = []
     this._displayGrid = true
     this._page = 1
     this._totalCount = 0
-    this._limit = 8
+    this._limit = 12
     makeAutoObservable(this)
   }
 

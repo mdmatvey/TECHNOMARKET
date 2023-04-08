@@ -38,7 +38,6 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
   }
 
   const categoryClick = (id) => {
-    console.log(id)
     product.setSelectedCategory(id)
   }
 
@@ -83,7 +82,7 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
                               onClick={() => categoryClick([category.id])}
                               style={{ padding: 7, fontSize: '1.1rem', cursor: 'pointer' }}
                             >
-                            {category}
+                            {category.name}
                           </div>
                     )
                 }
@@ -100,9 +99,11 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
                           </>
                         : product.brands.map(brand => {
                           return (
-                            product.catalogToDisplay.map(brand => brand.name).includes(brand.name)
-                              ? <Form.Check onClick={(e) => checkBrand(e, brand)} key={brand.id} label={brand.name} className="filterBarChecked" style={{ fontSize: '1.1rem' }} />
-                              : <Form.Check onClick={(e) => checkBrand(e, brand)} key={brand.id} label={brand.name} />
+                            product.selectedBrands
+                              ? product.selectedBrands.map(brand => brand.name).includes(brand.name)
+                                ? <Form.Check onClick={(e) => checkBrand(e, brand)} key={brand.id} label={brand.name.length > 7 ? brand.name.slice(0, 7) + '...' : brand.name} className="filterBarChecked" style={{ fontSize: '1.1rem' }} />
+                                : <Form.Check onClick={(e) => checkBrand(e, brand)} key={brand.id} label={brand.name.length > 7 ? brand.name.slice(0, 7) + '...' : brand.name} />
+                              : <Form.Check onClick={(e) => checkBrand(e, brand)} key={brand.id} label={brand.name.length > 7 ? brand.name.slice(0, 7) + '...' : brand.name} />
                           )
                         })
                   }

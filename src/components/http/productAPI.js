@@ -1,6 +1,6 @@
 // ПОЛУЧИТЬ ВСЕ КАТЕГОРИИ
 export const fetchCategories = async () => {
-  const response = await fetch('https://fakestoreapi.com/products/categories') // URL API ЗАПРОСА
+  const response = await fetch('https://technomarket-spb.ru/api/categories/') // URL API ЗАПРОСА
   const responseJSON = await response.json()
 
   return responseJSON
@@ -8,23 +8,29 @@ export const fetchCategories = async () => {
 
 // ПОЛУЧИТЬ ВСЕ БРЕНДЫ
 export const fetchBrands = async () => {
-  const response = await fetch('https://fakestoreapi.com/products/brands') // URL API ЗАПРОСА
+  const response = await fetch('https://technomarket-spb.ru/api/brands/') // URL API ЗАПРОСА
   const responseJSON = await response.json()
 
   return responseJSON
 }
 
 // ПОЛУЧИТЬ ПРОДУКТЫ
-export const fetchProducts = async (subCategoryID, brands, page, limit = 8) => {
-  const response = await fetch(`https://fakestoreapi.com/products/?subCategoryID=${subCategoryID}&brands=${brands}&limit=${limit}&page=${page}`) // URL API АДРЕСА
-  const responseJSON = await response.json()
+export const fetchProducts = async (query, subCategoryID, brands, page, limit) => {
+  let string = `https://technomarket-spb.ru/api/products/?page=${page}&page_size=${limit}`
 
-  return responseJSON
-}
+  if (query) {
+    string += `&search=${query}`
+  }
 
-// ПОИСК ПО ПРОДУКТАМ
-export const fetchFoundProducts = async (query) => {
-  const response = await fetch(`https://fakestoreapi.com/products/search?query=${query}`) // URL API АДРЕСА + ПОИСКОВОЙ ЗАПРОС
+  if (subCategoryID) {
+    string += `&category_id__in=${subCategoryID}`
+  }
+
+  if (brands) {
+    string += `&brand__in=${brands}`
+  }
+
+  const response = await fetch(string) // URL API АДРЕСА
   const responseJSON = await response.json()
 
   return responseJSON
@@ -32,7 +38,7 @@ export const fetchFoundProducts = async (query) => {
 
 // ПОЛУЧИТЬ КОНКРЕТНЫЙ ПРОДУКТ
 export const fetchOneProduct = async (id) => {
-  const response = await fetch(`https://fakestoreapi.com/products/${id}`) // URL API АДРЕСА + ID ТОВАРА
+  const response = await fetch(`https://technomarket-spb.ru/api/product/${id}`) // URL API АДРЕСА + ID ТОВАРА
   const responseJSON = await response.json()
 
   return responseJSON
@@ -40,16 +46,16 @@ export const fetchOneProduct = async (id) => {
 
 // ПОЛУЧИТЬ СОРТИРОВКУ ПО ЦЕНЕ
 export const fetchSortProductsPrice = async (order) => {
-  const response = await fetch(`https://fakestoreapi.com/products?sort=${order}`) // order === 'asc / 'desc'
-  const responseJSON = await response.json()
+  // const response = await fetch(`https://fakestoreapi.com/products?sort=${order}`) // order === 'asc / 'desc'
+  // const responseJSON = await response.json()
 
-  return responseJSON
+  // return responseJSON
 }
 
 // ПОЛУЧИТЬ СОРТИРОВКУ ПО ПОПУЛЯРНОСТИ
 export const fetchSortProductsPopularity = async (order) => {
-  const response = await fetch(`https://fakestoreapi.com/products?sort=${order}`) // order === 'asc / 'desc'
-  const responseJSON = await response.json()
+  // const response = await fetch(`https://fakestoreapi.com/products?sort=${order}`) // order === 'asc / 'desc'
+  // const responseJSON = await response.json()
 
-  return responseJSON
+  // return responseJSON
 }

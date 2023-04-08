@@ -8,7 +8,7 @@ import { TEXTBUTTON_STYLE } from '../utils/uiConsts'
 import { BsFillTelephoneFill } from 'react-icons/bs'
 import { IoIosMail } from 'react-icons/io'
 import { Context } from '..'
-import { fetchFoundProducts } from './http/productAPI'
+import { fetchProducts } from './http/productAPI'
 import '../styles/BrandBarStyles.css'
 
 const BrandBar = observer(() => {
@@ -20,13 +20,14 @@ const BrandBar = observer(() => {
 
   const [query, setQuery] = useState('')
 
-  const search = (searchParam) => {
+  const search = (e, searchParam) => {
+    e.preventDefault()
     product.setIsProductsLoading(true)
-    fetchFoundProducts(searchParam)
+    fetchProducts(searchParam, null, null, product.page, product.limit)
       .then(data => {
-        product.setProducts(data)
+        product.setProducts(data.results)
         product.setIsProductsLoading(false)
-        product.setTotalCount(data.length)
+        product.setTotalCount(data.count)
       })
   }
 
@@ -63,20 +64,20 @@ const BrandBar = observer(() => {
         <>
             <Container className={`d-flex ${outerFlexDirection} align-items-center justify-content-between pt-5`}>
                 <Image src={Logo} onClick={() => navigate(SHOP_ROUTE)} id='logo' style={{ cursor: 'pointer' }} />
-                <Form className="d-flex" id='searchbar'>
+                <Form className="d-flex" id='searchbar' onSubmit={(e) => search(e, query)}>
                     <Form.Control
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         type="search"
-                        placeholder="Search"
+                        placeholder="Название товара"
                         className="me-2"
                         aria-label="Search"
                     />
                     <Button
-                        onClick={search(query)}
                         variant="outline-success"
+                        type="submit"
                     >
-                        Search
+                        Искать
                     </Button>
                 </Form>
             </Container>

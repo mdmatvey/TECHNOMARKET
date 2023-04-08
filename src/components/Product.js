@@ -30,25 +30,21 @@ const Product = observer(({ item }) => {
                     style={{ cursor: 'pointer', border: 'none', borderRadius: 5, padding: 5 }}
                     onClick={() => navigate(PRODUCT_ROUTE + '/' + item.id)}
                 >
-                    <Image style={{ objectFit: 'contain', marginLeft: 'auto', marginRight: 'auto' }} width={150} height={150} src={item.image} />
+                    <Image style={{ objectFit: 'contain', marginLeft: 'auto', marginRight: 'auto' }} width={150} height={150} src={'https://technomarket-spb.ru/static/images/' + item.image} />
                     <div className='mt-3'>
-                        <div style={{ fontSize: '1.1rem' }}><strong>Brand </strong>{item.title.length > 40 ? item.title.substring(0, 40) + '...' : item.title}</div>
+                        <div style={{ fontSize: '1.1rem' }}><strong>{item.brand} </strong>{item.title.length > 40 ? item.title.substring(0, 40) + '...' : item.title}</div>
                     </div>
                 </Card>
-                <div style={{ position: 'absolute', bottom: 0, right: 10, fontSize: '1.7rem', display: 'block', marginLeft: 'auto' }}>
-                        <strong>{item.price.toFixed(2)}₽</strong>
-                </div>
             </div>
           </Col>
       : <Card
             style={{ display: 'grid', alignItems: 'center', gridTemplateColumns: '3fr 7fr 4fr 1fr', gridTemplateRows: 170, width: '100%', marginBottom: 10, cursor: 'pointer', boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px', border: 'none' }}
             onClick={() => navigate(PRODUCT_ROUTE + '/' + item.id)}
         >
-            <Card.Img style={{ height: '80%', width: '80%', objectFit: 'contain', marginLeft: 'auto', marginRight: 'auto' }} src={item.image} />
+            <Card.Img style={{ height: '80%', width: '80%', objectFit: 'contain', marginLeft: 'auto', marginRight: 'auto' }} src={'https://technomarket-spb.ru/static/images/' + item.image} />
             <Card.Body>
-                <Card.Title style={{ fontSize: '1.1rem' }}>{item.title}</Card.Title>
+                <Card.Title style={{ fontSize: '1.1rem' }}><strong>{item.brand} </strong>{item.title}</Card.Title>
                 <Card.Subtitle>{item.category}</Card.Subtitle>
-                <Card.Text><h2>{(item.price).toFixed(2)}₽</h2></Card.Text>
             </Card.Body>
         </Card>
   )

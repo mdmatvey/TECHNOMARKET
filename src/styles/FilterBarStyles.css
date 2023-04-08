@@ -26,6 +26,10 @@
     border-color: #088434;
 }
 
+.form-check-label {
+    font-size: 1rem !important;
+}
+
 @media screen and (max-width: 992px) {
     span.filterCategory {
         font-size: 1.25rem !important;

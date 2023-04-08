@@ -15,7 +15,6 @@ const ProductPage = observer(() => {
   const { id } = useParams()
   const [isLoading, setIsLoading] = useState(true)
   const [md1, setMd1] = useState(4)
-  const [md2, setMd2] = useState(8)
 
   useEffect(() => {
     fetchOneProduct(id)
@@ -26,12 +25,16 @@ const ProductPage = observer(() => {
   }, [])
 
   useEffect(() => {
+    if (document.querySelector('#product_description')) {
+      document.querySelector('#product_description').innerHTML = product.products.description
+    }
+  }, [product.products])
+
+  useEffect(() => {
     if (user.userWidth < 992) {
       setMd1(12)
-      setMd2(12)
     } else if (user.userWidth >= 992) {
-      setMd1(4)
-      setMd2(8)
+      setMd1(6)
     }
   }, [user.userWidth])
 
@@ -75,7 +78,7 @@ const ProductPage = observer(() => {
                               <Carousel.Item>
                                 <img
                                   className="d-block w-100"
-                                  src={product.products.image}
+                                  src={'https://technomarket-spb.ru/static/images/' + product.products.image}
                                   style={{ objectFit: 'contain', display: 'block', margin: '0 auto', width: 300, height: 300 }}
                                 />
                               </Carousel.Item>
@@ -98,36 +101,9 @@ const ProductPage = observer(() => {
                                 </>
                               : <>
                                     <h3>Описание товара:</h3>
-                                    {product.products.description}
+                                    <div id="product_description"></div>
                                 </>
                         }
-                    </Card>
-                </Col>
-                <Col md={md1}>
-                    <Card
-                        className="d-flex flex-column"
-                        style={{ width: '100%', height: '100%', fontSize: 30, border: 'none', borderRadius: 0, background: '#ededed', padding: 10 }}
-                    >
-                        {
-                            isLoading
-                              ? <>
-                                    <h3 style={{ marginBottom: 0 }}><Skeleton style={{ width: '15%' }} /></h3>
-                                    <span><Skeleton style={{ width: '30%' }} /></span>
-                                    <Skeleton style={{ width: '30%' }} />
-                                    <Skeleton style={{ width: '30%' }} />
-                                    <Skeleton style={{ width: '50%' }} />
-                                    <Skeleton />
-                                    <Skeleton style={{ width: '80%' }} />
-                                </>
-                              : <>
-                                    <h3 style={{ marginBottom: 0 }}>Цена</h3>
-                                    <span>{(product.products.price * product.products.count).toFixed(2)}₽</span>
-                                    Срок: 1 д.<br/>
-                                    Наличие: 1 шт.
-                                    Картой онлайн, наличными
-                                </>
-                        }
-
                     </Card>
                 </Col>
             </Row>

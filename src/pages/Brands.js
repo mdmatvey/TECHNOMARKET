@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 import { PRIMARY_COLOR } from '../utils/uiConsts'
 import { ImHome3 } from 'react-icons/im'
 import { TiThSmall } from 'react-icons/ti'
-import BrandBarStyles from '../styles/BrandBarStyles.css'
+import '../styles/BrandBarStyles.css'
 
 const Brands = observer(() => {
   const { product, user } = useContext(Context)
@@ -30,9 +30,8 @@ const Brands = observer(() => {
   }, [])
 
   useEffect(() => {
-    console.log(query)
     if (query.length !== 0) {
-      setBrandsToDisplay(product.brands.filter(brand => brand.name.includes(query)))
+      setBrandsToDisplay(product.brands.filter(brand => brand.name.toLowerCase().startsWith(query)))
     } else {
       setBrandsToDisplay(product.brands)
     }
@@ -80,7 +79,7 @@ const Brands = observer(() => {
               <Form className="d-flex" style={{ display: 'block', margin: '0 auto', width: '50%' }}>
                   <Form.Control
                       value={query}
-                      onChange={(e) => setQuery(e.target.value)}
+                      onChange={(e) => setQuery(e.target.value.toLowerCase())}
                       type="search"
                       placeholder={'Поиск по брендам'}
                       className="me-2"

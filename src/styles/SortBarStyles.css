@@ -17,9 +17,9 @@
     color: #000;
 }
 
-ul.pagination li span {
+ul.pagination li.active span {
     background-color: #088434 !important;
-    border-color: #088434 !important;
+    border-color: #088434
 }
 
 ul.pagination li a {
