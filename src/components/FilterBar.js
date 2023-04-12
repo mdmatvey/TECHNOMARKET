@@ -55,6 +55,7 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
                             >
                               <div
                                 className='categorybutton'
+                                style={{ width: '100%', height: '100%' }}
                               >
                                 {category.name}
                                 </div>

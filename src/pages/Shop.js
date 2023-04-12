@@ -67,8 +67,6 @@ const Shop = observer(() => {
       brands = product.selectedBrands.map(brand => brand.name)
     }
 
-    console.log(query, category, brands)
-
     fetchProducts(query, category, brands, product.page, product.limit)
       .then(data => {
         product.setProducts(data.results)
