@@ -49,8 +49,15 @@ const Shop = observer(() => {
   }, [])
 
   useEffect(() => {
+    product.setIsProductsLoading(true)
+
+    let query = null
     let category = null
     let brands = null
+
+    if (product.searchQuery.length > 0) {
+      query = product.searchQuery
+    }
 
     if (product.selectedCategory.length > 0) {
       category = product.selectedCategory
@@ -60,12 +67,15 @@ const Shop = observer(() => {
       brands = product.selectedBrands.map(brand => brand.name)
     }
 
-    fetchProducts(null, category, brands, product.page, product.limit)
+    console.log(query, category, brands)
+
+    fetchProducts(query, category, brands, product.page, product.limit)
       .then(data => {
         product.setProducts(data.results)
+        product.setIsProductsLoading(false)
         product.setTotalCount(data.count)
       })
-  }, [product.page, product.limit, product.selectedCategory, product.selectedBrands])
+  }, [product.searchQuery, product.selectedCategory, product.selectedBrands, product.page, product.limit])
 
   useEffect(() => {
     if (user.userWidth < 768) {

@@ -23,7 +23,13 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
     }
   }
 
-  const categoryClick = (id) => {
+  const categoryClick = (e, id) => {
+    const HTMLCollection = document.getElementsByClassName('categorybutton')
+    // eslint-disable-next-line prefer-const
+    for (let button of HTMLCollection) {
+      button.style.fontWeight = 'normal'
+    }
+    e.target.style.fontWeight = 'bold'
     product.setSelectedCategory(id)
   }
 
@@ -41,20 +47,25 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
                               onClick={(e) => {
                                 e.stopPropagation()
                                 if (category.subcategories) {
-                                  categoryClick(category.subcategories.map(subcategory => subcategory.id))
+                                  categoryClick(e, category.subcategories.map(subcategory => subcategory.id))
                                 } else {
-                                  categoryClick(category.id)
+                                  categoryClick(e, category.id)
                                 }
                               }}
                             >
-                              {category.name}
+                              <div
+                                className='categorybutton'
+                              >
+                                {category.name}
+                                </div>
                             </Accordion.Header>
                             <Accordion.Body>
                               {
                                 category.subcategories.map(subcategory =>
                                     <div
+                                      className='categorybutton'
                                       key={subcategory.id}
-                                      onClick={() => categoryClick([subcategory.id])}
+                                      onClick={(e) => categoryClick(e, [subcategory.id])}
                                       style={{ margin: '4px 0', padding: '6px 0', cursor: 'pointer' }}
                                     >
                                       {subcategory.name}
@@ -64,8 +75,9 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
                             </Accordion.Body>
                           </Accordion.Item>
                         : <div
+                              className='categorybutton'
                               key={category.id}
-                              onClick={() => categoryClick([category.id])}
+                              onClick={(e) => categoryClick(e, [category.id])}
                               style={{ padding: 7, fontSize: '1.1rem', cursor: 'pointer' }}
                             >
                             {category.name}

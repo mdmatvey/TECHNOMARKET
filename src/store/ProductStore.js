@@ -6,6 +6,7 @@ export default class ProductStore {
     this._brands = []
     this._products = []
     this._isProductsLoading = true
+    this._searchQuery = ''
     this._selectedCategory = []
     this._selectedBrands = []
     this._displayGrid = true
@@ -29,6 +30,12 @@ export default class ProductStore {
 
   setIsProductsLoading (bool) {
     this._isProductsLoading = bool
+  }
+
+  setSearchQuery (query) {
+    this.setSelectedCategory([])
+    this.setSelectedBrands([])
+    this._searchQuery = query
   }
 
   setSelectedCategory (category) {
@@ -71,6 +78,10 @@ export default class ProductStore {
 
   get isProductsLoading () {
     return this._isProductsLoading
+  }
+
+  get searchQuery () {
+    return this._searchQuery
   }
 
   get selectedCategory () {

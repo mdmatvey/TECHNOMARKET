@@ -8,7 +8,6 @@ import { TEXTBUTTON_STYLE } from '../utils/uiConsts'
 import { BsFillTelephoneFill } from 'react-icons/bs'
 import { IoIosMail } from 'react-icons/io'
 import { Context } from '..'
-import { fetchProducts } from './http/productAPI'
 import '../styles/BrandBarStyles.css'
 
 const BrandBar = observer(() => {
@@ -22,13 +21,9 @@ const BrandBar = observer(() => {
 
   const search = (e, searchParam) => {
     e.preventDefault()
-    product.setIsProductsLoading(true)
-    fetchProducts(searchParam, null, null, product.page, product.limit)
-      .then(data => {
-        product.setProducts(data.results)
-        product.setIsProductsLoading(false)
-        product.setTotalCount(data.count)
-      })
+    navigate(SHOP_ROUTE, { state: { firstRender: false } })
+    product.setSearchQuery(searchParam)
+    setQuery('')
   }
 
   useEffect(() => {
