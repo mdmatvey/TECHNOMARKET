@@ -74,7 +74,8 @@ const ProductPage = observer(() => {
                     {
                         isLoading
                           ? <Skeleton style={{ display: 'block', margin: '0 auto', width: 300, height: 300 }} />
-                          : <Carousel variant="dark">
+                          : product.products.length > 1
+                            ? <Carousel variant="dark">
                               <Carousel.Item>
                                 <img
                                   className="d-block w-100"
@@ -83,6 +84,11 @@ const ProductPage = observer(() => {
                                 />
                               </Carousel.Item>
                             </Carousel>
+                            : <img
+                                className="d-block w-100"
+                                src={'https://technomarket-spb.ru/static/images/' + product.products.image}
+                                style={{ objectFit: 'contain', display: 'block', margin: '0 auto', width: 300, height: 300 }}
+                              />
                     }
                 </Col>
                 <Col md={md1}>
