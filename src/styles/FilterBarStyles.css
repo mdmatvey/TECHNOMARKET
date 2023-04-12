@@ -30,6 +30,30 @@
     font-size: 1rem !important;
 }
 
+body {
+    overflow: overlay;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+.filterbar ::-webkit-scrollbar {
+    width: 4px;
+} 
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #626262; 
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #088434; 
+}
+
 @media screen and (max-width: 992px) {
     span.filterCategory {
         font-size: 1.25rem !important;
