@@ -30,6 +30,11 @@
     font-size: 1rem !important;
 }
 
+.filterbuttons:hover {
+    background: #fff !important;
+    color: #000;
+}
+
 body {
     overflow: overlay;
 }

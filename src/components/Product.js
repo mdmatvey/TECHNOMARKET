@@ -43,7 +43,7 @@ const Product = observer(({ item }) => {
         >
             <Card.Img style={{ height: '80%', width: '80%', objectFit: 'contain', marginLeft: 'auto', marginRight: 'auto' }} src={'https://technomarket-spb.ru/static/images/' + item.image} />
             <Card.Body>
-                <Card.Title style={{ fontSize: '1.1rem' }}><strong>{item.brand} </strong>{item.title}</Card.Title>
+                <Card.Title style={{ fontSize: '1.1rem' }}><strong>{item.brand} </strong>{user.userWidth < 575 ? item.title.length > 40 ? item.title.substring(0, 40) + '...' : item.title : item.title}</Card.Title>
                 <Card.Subtitle>{item.category}</Card.Subtitle>
             </Card.Body>
         </Card>
