@@ -3,13 +3,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, Dropdown, DropdownButton, Row } from 'react-bootstrap'
 import { Context } from '..'
 import { TEXTBUTTON_STYLE } from '../utils/uiConsts'
-import { fetchSortProductsPrice, fetchSortProductsPopularity } from './http/productAPI'
+// import { fetchSortProductsPrice, fetchSortProductsPopularity } from './http/productAPI'
 import { TiThList, TiThLarge } from 'react-icons/ti'
-import { BsCaretDownFill, BsCaretUpFill } from 'react-icons/bs'
-import SortBarStyles from '../styles/SortBarStyles.css'
+// import { BsCaretDownFill, BsCaretUpFill } from 'react-icons/bs'
+import '../styles/SortBarStyles.css'
 
-let i = 1
-let j = 1
+// const i = 1
+// const j = 1
 
 const SortdBar = observer(({ setIsProductsLoading }) => {
   const { user, product } = useContext(Context)
@@ -36,98 +36,105 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
 
   const itemsOnPage = (e, num) => {
     product.setLimit(num)
-    document.getElementById('twelve').style.color = 'gray'
-    document.getElementById('twenty_four').style.color = 'gray'
-    document.getElementById('forty_eight').style.color = 'gray'
-    e.target.style.color = '#fff'
+    if (dropdown) {
+      document.getElementById('twelve').style.fontWeight = 'normal'
+      document.getElementById('twenty_four').style.fontWeight = 'normal'
+      document.getElementById('forty_eight').style.fontWeight = 'normal'
+      e.target.style.fontWeight = 'bold'
+    } else {
+      document.getElementById('twelve').style.color = '#fff'
+      document.getElementById('twenty_four').style.color = '#fff'
+      document.getElementById('forty_eight').style.color = '#fff'
+      e.target.style.color = 'gray'
+    }
   }
 
   const listType = (bool, element1, element2) => {
     product.setDisplayGrid(bool)
-    element2.style.color = 'gray'
+    element1.style.color = 'gray'
     if (dropdown) {
-      element1.style.color = '#000'
+      element2.style.color = '#000'
     } else {
-      element1.style.color = '#fff'
+      element2.style.color = '#fff'
     }
   }
 
-  const [priceCaretUpDisplay, setPrcieCaretUpDisplay] = useState({ display: 'none' })
-  const [priceCaretDownDisplay, setPrcieCaretDownDisplay] = useState({ display: 'none' })
-  const [popularityCaretUpDisplay, setPopularityCaretUpDisplay] = useState({ display: 'none' })
-  const [popularityCaretDownDisplay, setPopularityCaretDownDisplay] = useState({ display: 'inline-block' })
+  // const [priceCaretUpDisplay, setPrcieCaretUpDisplay] = useState({ display: 'none' })
+  // const [priceCaretDownDisplay, setPrcieCaretDownDisplay] = useState({ display: 'none' })
+  // const [popularityCaretUpDisplay, setPopularityCaretUpDisplay] = useState({ display: 'none' })
+  // const [popularityCaretDownDisplay, setPopularityCaretDownDisplay] = useState({ display: 'inline-block' })
 
-  const priceSort = () => {
-    if (dropdown) {
-      document.getElementById('popularity-dropdown').style.color = 'gray'
-      document.getElementById('price-dropdown').style.color = '#000'
-    } else {
-      document.getElementById('popularity').style.color = 'gray'
-      document.getElementById('price').style.color = '#fff'
-    }
+  // const priceSort = () => {
+  //   if (dropdown) {
+  //     document.getElementById('popularity-dropdown').style.color = 'gray'
+  //     document.getElementById('price-dropdown').style.color = '#000'
+  //   } else {
+  //     document.getElementById('popularity').style.color = 'gray'
+  //     document.getElementById('price').style.color = '#fff'
+  //   }
 
-    if (i + 1 === 2) {
-      i++
-      setIsProductsLoading(true)
-      fetchSortProductsPrice('desc')
-        .then(data => {
-          product.setProducts(data)
-          setIsProductsLoading(false)
-        })
-      setPrcieCaretDownDisplay({ display: 'inline-block' })
-      setPrcieCaretUpDisplay({ display: 'none' })
-      setPopularityCaretDownDisplay({ display: 'none' })
-      setPopularityCaretUpDisplay({ display: 'none' })
-    } else if (i + 1 === 3) {
-      i = 1
-      setIsProductsLoading(true)
-      fetchSortProductsPrice('asc')
-        .then(data => {
-          product.setProducts(data)
-          setIsProductsLoading(false)
-        })
-      setPrcieCaretDownDisplay({ display: 'none' })
-      setPrcieCaretUpDisplay({ display: 'inline-block' })
-      setPopularityCaretDownDisplay({ display: 'none' })
-      setPopularityCaretUpDisplay({ display: 'none' })
-    }
-  }
+  //   if (i + 1 === 2) {
+  //     i++
+  //     setIsProductsLoading(true)
+  //     fetchSortProductsPrice('desc')
+  //       .then(data => {
+  //         product.setProducts(data)
+  //         setIsProductsLoading(false)
+  //       })
+  //     setPrcieCaretDownDisplay({ display: 'inline-block' })
+  //     setPrcieCaretUpDisplay({ display: 'none' })
+  //     setPopularityCaretDownDisplay({ display: 'none' })
+  //     setPopularityCaretUpDisplay({ display: 'none' })
+  //   } else if (i + 1 === 3) {
+  //     i = 1
+  //     setIsProductsLoading(true)
+  //     fetchSortProductsPrice('asc')
+  //       .then(data => {
+  //         product.setProducts(data)
+  //         setIsProductsLoading(false)
+  //       })
+  //     setPrcieCaretDownDisplay({ display: 'none' })
+  //     setPrcieCaretUpDisplay({ display: 'inline-block' })
+  //     setPopularityCaretDownDisplay({ display: 'none' })
+  //     setPopularityCaretUpDisplay({ display: 'none' })
+  //   }
+  // }
 
-  const popularitySort = () => {
-    if (dropdown) {
-      document.getElementById('popularity-dropdown').style.color = '#000'
-      document.getElementById('price-dropdown').style.color = 'gray'
-    } else {
-      document.getElementById('popularity').style.color = '#fff'
-      document.getElementById('price').style.color = 'gray'
-    }
+  // const popularitySort = () => {
+  //   if (dropdown) {
+  //     document.getElementById('popularity-dropdown').style.color = '#000'
+  //     document.getElementById('price-dropdown').style.color = 'gray'
+  //   } else {
+  //     document.getElementById('popularity').style.color = '#fff'
+  //     document.getElementById('price').style.color = 'gray'
+  //   }
 
-    if (j + 1 === 2) {
-      j++
-      setIsProductsLoading(true)
-      fetchSortProductsPopularity('desc')
-        .then(data => {
-          product.setProducts(data)
-          setIsProductsLoading(false)
-        })
-      setPrcieCaretDownDisplay({ display: 'none' })
-      setPrcieCaretUpDisplay({ display: 'none' })
-      setPopularityCaretDownDisplay({ display: 'inline-block' })
-      setPopularityCaretUpDisplay({ display: 'none' })
-    } else if (j + 1 === 3) {
-      j = 1
-      setIsProductsLoading(true)
-      fetchSortProductsPopularity('asc')
-        .then(data => {
-          product.setProducts(data)
-          setIsProductsLoading(false)
-        })
-      setPrcieCaretDownDisplay({ display: 'none' })
-      setPrcieCaretUpDisplay({ display: 'none' })
-      setPopularityCaretDownDisplay({ display: 'none' })
-      setPopularityCaretUpDisplay({ display: 'inline-block' })
-    }
-  }
+  //   if (j + 1 === 2) {
+  //     j++
+  //     setIsProductsLoading(true)
+  //     fetchSortProductsPopularity('desc')
+  //       .then(data => {
+  //         product.setProducts(data)
+  //         setIsProductsLoading(false)
+  //       })
+  //     setPrcieCaretDownDisplay({ display: 'none' })
+  //     setPrcieCaretUpDisplay({ display: 'none' })
+  //     setPopularityCaretDownDisplay({ display: 'inline-block' })
+  //     setPopularityCaretUpDisplay({ display: 'none' })
+  //   } else if (j + 1 === 3) {
+  //     j = 1
+  //     setIsProductsLoading(true)
+  //     fetchSortProductsPopularity('asc')
+  //       .then(data => {
+  //         product.setProducts(data)
+  //         setIsProductsLoading(false)
+  //       })
+  //     setPrcieCaretDownDisplay({ display: 'none' })
+  //     setPrcieCaretUpDisplay({ display: 'none' })
+  //     setPopularityCaretDownDisplay({ display: 'none' })
+  //     setPopularityCaretUpDisplay({ display: 'inline-block' })
+  //   }
+  // }
 
   return (
         <Row className="d-flex" style={{ background: '#000', color: '#fff', fontSize: '1.1rem', width: '100%', margin: '0 auto', padding: '4px 8px', borderRadius: 5 }} id='brandbar'>
@@ -135,7 +142,7 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                 {
                     dropdown
                       ? <div className={`d-flex ${flexDirection} justify-content-between`} style={{ width: '100%' }}>
-                            <DropdownButton title="Сортировать по">
+                            {/* <DropdownButton title="Сортировать по">
                                 <Dropdown.Item>
                                     <Button
                                         onClick={() => priceSort()}
@@ -154,13 +161,13 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                                         популярность <BsCaretDownFill style={{ ...popularityCaretDownDisplay, fontSize: '1rem' }} /> <BsCaretUpFill style={{ ...popularityCaretUpDisplay, fontSize: '1rem' }} />
                                     </Button>
                                 </Dropdown.Item>
-                            </DropdownButton>
+                            </DropdownButton> */}
                             <DropdownButton title="На странице">
                                 <Dropdown.Item>
                                     <Button
                                         onClick={(e) => itemsOnPage(e, 12)}
                                         id="twelve"
-                                        style={{ ...TEXTBUTTON_STYLE, color: '#000' }}
+                                        style={{ ...TEXTBUTTON_STYLE, color: '#000', fontWeight: product.limit === 12 ? 'bold' : 'normal' }}
                                     >
                                         12
                                     </Button>
@@ -169,7 +176,7 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                                     <Button
                                         onClick={(e) => itemsOnPage(e, 24)}
                                         id="twenty_four"
-                                        style={{ ...TEXTBUTTON_STYLE, color: '#000', fontWeight: 'bold' }}
+                                        style={{ ...TEXTBUTTON_STYLE, color: '#000', fontWeight: product.limit === 24 ? 'bold' : 'normal' }}
                                     >
                                         24
                                     </Button>
@@ -178,7 +185,7 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                                     <Button
                                         onClick={(e) => itemsOnPage(e, 48)}
                                         id="forty_eight"
-                                        style={{ ...TEXTBUTTON_STYLE, color: '#000' }}
+                                        style={{ ...TEXTBUTTON_STYLE, color: '#000', fontWeight: product.limit === 48 ? 'bold' : 'normal' }}
                                     >
                                         48
                                     </Button>
@@ -187,18 +194,19 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                             <DropdownButton title="Вид">
                                 <Dropdown.Item>
                                     <Button onClick={(e) => listType(true, document.getElementById('grid'), document.getElementById('list'))} style={TEXTBUTTON_STYLE}>
-                                        <TiThLarge id="grid" style={{ color: 'black' }} />
+                                        <TiThLarge id="grid" style={{ color: product.displayGrid === true ? 'gray' : '#000' }} />
                                     </Button>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
                                     <Button onClick={(e) => listType(false, document.getElementById('list'), document.getElementById('grid'))} style={TEXTBUTTON_STYLE}>
-                                        <TiThList id="list" style={{ color: 'gray' }} />
+                                        <TiThList id="list" style={{ color: product.displayGrid === false ? 'gray' : '#000' }} />
                                     </Button>
                                 </Dropdown.Item>
                         </DropdownButton>
                         </div>
                       : <div className='d-flex justify-content-between w-100'>
-                            <span className='d-flex align-items-baseline'>
+                            <span className='d-flex align-items-center' style={{ color: '#4a4a4a', fontWeight: 'bold', userSelect: 'none' }}>&copy; TECHNOMARKET</span>
+                            {/* <span className='d-flex align-items-baseline'>
                                 Сортировать по:
                                 <Button
                                     onClick={() => priceSort()}
@@ -214,27 +222,27 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                                 >
                                     популярность <BsCaretDownFill style={{ ...popularityCaretDownDisplay, fontSize: '1rem' }} /> <BsCaretUpFill style={{ ...popularityCaretUpDisplay, fontSize: '1rem' }} />
                                 </Button>
-                            </span>
+                            </span> */}
                             <span className="d-flex align-items-center">
                                 На странице:
                                 <Button
                                     onClick={(e) => itemsOnPage(e, 12)}
                                     id="twelve"
-                                    style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
+                                    style={{ ...TEXTBUTTON_STYLE, color: product.limit === 12 ? 'gray' : '#fff' }}
                                 >
                                     12
                                 </Button>
                                 <Button
                                     onClick={(e) => itemsOnPage(e, 24)}
                                     id="twenty_four"
-                                    style={{ ...TEXTBUTTON_STYLE, color: '#fff' }}
+                                    style={{ ...TEXTBUTTON_STYLE, color: product.limit === 24 ? 'gray' : '#fff' }}
                                 >
                                     24
                                 </Button>
                                 <Button
                                     onClick={(e) => itemsOnPage(e, 48)}
                                     id="forty_eight"
-                                    style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
+                                    style={{ ...TEXTBUTTON_STYLE, color: product.limit === 48 ? 'gray' : '#fff' }}
                                 >
                                     48
                                 </Button>
@@ -242,10 +250,10 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                             <span className='d-flex align-items-baseline'>
                                 Вид:
                                 <Button onClick={(e) => listType(true, document.getElementById('grid'), document.getElementById('list'))} style={TEXTBUTTON_STYLE}>
-                                    <TiThLarge id="grid" style={{ transition: '0.25s' }} />
+                                    <TiThLarge id="grid" style={{ color: product.displayGrid === true ? 'gray' : '#fff', transition: '0.25s' }} />
                                 </Button>
                                 <Button onClick={(e) => listType(false, document.getElementById('list'), document.getElementById('grid'))} style={TEXTBUTTON_STYLE}>
-                                    <TiThList id="list" style={{ color: 'gray', transition: '0.25s' }} />
+                                    <TiThList id="list" style={{ color: product.displayGrid === false ? 'gray' : '#fff', transition: '0.25s' }} />
                                 </Button>
                             </span>
                         </div>
