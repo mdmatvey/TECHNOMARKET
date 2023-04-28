@@ -8,6 +8,7 @@ export default class ProductStore {
     this._isProductsLoading = true
     this._searchQuery = ''
     this._selectedCategory = []
+    this._selectedCategoryIndex = []
     this._selectedBrands = []
     this._displayGrid = true
     this._page = 1
@@ -41,6 +42,10 @@ export default class ProductStore {
   setSelectedCategory (category) {
     this.setPage(1)
     this._selectedCategory = category
+  }
+
+  setSelectedCategoryIndex (index) {
+    this._selectedCategoryIndex = index
   }
 
   setSelectedBrands (brands) {
@@ -86,6 +91,10 @@ export default class ProductStore {
 
   get selectedCategory () {
     return this._selectedCategory
+  }
+
+  get selectedCategoryIndex () {
+    return this._selectedCategoryIndex
   }
 
   get selectedBrands () {

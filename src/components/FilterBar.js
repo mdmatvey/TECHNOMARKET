@@ -24,7 +24,10 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
     }
   }
 
-  const categoryClick = (e, id) => {
+  const [activeKey, setActiveKey] = useState()
+
+  const categoryClick = (e, index, id) => {
+    product.setSelectedCategoryIndex(index)
     const HTMLCollection = document.getElementsByClassName('categorybutton')
     // eslint-disable-next-line prefer-const
     for (let button of HTMLCollection) {
@@ -52,7 +55,7 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
                 <Modal.Title>Категории</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <Accordion className='p-3' flush>
+                <Accordion className='p-3' flush defaultActiveKey={product.selectedCategoryIndex} activeKey={activeKey}>
                     {
                       isCategoriesLoading
                         ? <Skeleton count={4} style={{ width: '80%' }} />
@@ -62,28 +65,73 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
                                 <Accordion.Header
                                   onClick={(e) => {
                                     e.stopPropagation()
+                                    setActiveKey(index)
                                     if (category.subcategories) {
-                                      categoryClick(e, category.subcategories.map(subcategory => subcategory.id))
+                                      categoryClick(e, index, category.subcategories.map(subcategory => subcategory.id))
                                     } else {
-                                      categoryClick(e, category.id)
+                                      categoryClick(e, index, category.id)
+                                      handleCloseCategories()
                                     }
                                   }}
                                 >
                                   <div
                                     className='categorybutton'
-                                    style={{ width: '100%', height: '100%' }}
+                                    style={{ width: '100%', height: '100%', fontWeight: product.selectedCategory.toString() === category.subcategories.map(subcategory => subcategory.id).toString() ? 'bold' : 'normal' }}
                                   >
                                     {category.name}
                                     </div>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                   {
-                                    category.subcategories.map(subcategory =>
-                                        <div
+                                    category.subcategories.map((subcategory, index1) =>
+                                      subcategory.subcategories
+                                        ? <Accordion.Item eventKey={index + '.' + index1} key={subcategory.id}>
+                                          <Accordion.Header
+                                            style={{ width: '90%', marginLeft: 'auto' }}
+                                            onClick={(e) => {
+                                              e.stopPropagation()
+                                              setActiveKey([index, index + '.' + index1])
+                                              if (subcategory.subcategories) {
+                                                categoryClick(e, index, subcategory.subcategories.map(subcategory => subcategory.id))
+                                              } else {
+                                                categoryClick(e, index, subcategory.id)
+                                                handleCloseCategories()
+                                              }
+                                            }}
+                                          >
+                                            <div
+                                              className='categorybutton'
+                                              style={{ width: '100%', height: '100%', fontWeight: product.selectedCategory.toString() === subcategory.id.toString() ? 'bold' : 'normal' }}
+                                            >
+                                              {subcategory.name}
+                                              </div>
+                                          </Accordion.Header>
+                                          <Accordion.Body>
+                                            {
+                                              subcategory.subcategories.map(subsubcategory =>
+                                                  <div
+                                                    className='categorybutton'
+                                                    key={subsubcategory.id}
+                                                    onClick={(e) => {
+                                                      categoryClick(e, [index, index + '.' + index1], [subsubcategory.id])
+                                                      handleCloseCategories()
+                                                    }}
+                                                    style={{ width: '80%', marginLeft: 'auto', padding: '6px 0 6px 8px', cursor: 'pointer', fontWeight: product.selectedCategory.length === 1 && product.selectedCategory[0] === subsubcategory.id ? 'bold' : 'normal' }}
+                                                  >
+                                                    {subsubcategory.name}
+                                                  </div>
+                                              )
+                                            }
+                                          </Accordion.Body>
+                                        </Accordion.Item>
+                                        : <div
                                           className='categorybutton'
                                           key={subcategory.id}
-                                          onClick={(e) => categoryClick(e, [subcategory.id])}
-                                          style={{ margin: '4px 0', padding: '6px 0', cursor: 'pointer' }}
+                                          onClick={(e) => {
+                                            categoryClick(e, index, [subcategory.id])
+                                            handleCloseCategories()
+                                          }}
+                                          style={{ width: '90%', marginLeft: 'auto', padding: '6px 0 6px 8px', cursor: 'pointer', fontWeight: product.selectedCategory.length === 1 && product.selectedCategory[0] === subcategory.id ? 'bold' : 'normal' }}
                                         >
                                           {subcategory.name}
                                         </div>
@@ -94,8 +142,8 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
                             : <div
                                   className='categorybutton'
                                   key={category.id}
-                                  onClick={(e) => categoryClick(e, [category.id])}
-                                  style={{ padding: 7, fontSize: '1.1rem', cursor: 'pointer' }}
+                                  onClick={(e) => categoryClick(e, index, [category.id])}
+                                  style={{ padding: 7, fontSize: '1.1rem', cursor: 'pointer', fontWeight: product.selectedCategory.length === 1 && product.selectedCategory[0] === category.id ? 'bold' : 'normal' }}
                                 >
                                 {category.name}
                               </div>
@@ -135,42 +183,82 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
             </Modal>
         </div>
       : <Card className='filterbar' style={{ width: '100%', padding: 4, border: 'none', boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px' }}>
-          <Accordion className='p-3' flush>
+          <Accordion className='p-3' flush defaultActiveKey={product.selectedCategoryIndex} activeKey={activeKey}>
             <span style={{ fontSize: '1.75rem', fontWeight: 'bold' }} className='filterCategory'>Категории:</span>
               {
                 isCategoriesLoading
                   ? <Skeleton count={4} style={{ width: '80%' }} />
                   : product.categories.map((category, index) =>
                     category.subcategories
-                      ? <Accordion.Item eventKey={index} key={category.id}>
+                      ? <Accordion.Item eventKey={index} key={category.id} id={`accordionitem${index}`}>
                           <Accordion.Header
                             onClick={(e) => {
                               e.stopPropagation()
+                              setActiveKey(index)
                               if (category.subcategories) {
-                                categoryClick(e, category.subcategories.map(subcategory => subcategory.id))
+                                categoryClick(e, index, category.subcategories.map(subcategory => subcategory.id))
                               } else {
-                                categoryClick(e, category.id)
+                                categoryClick(e, index, category.id)
                               }
                             }}
                           >
                             <div
                               className='categorybutton'
-                              style={{ width: '100%', height: '100%' }}
+                              style={{ width: '100%', height: '100%', fontWeight: product.selectedCategory.toString() === category.subcategories.map(subcategory => subcategory.id).toString() ? 'bold' : 'normal' }}
                             >
                               {category.name}
                               </div>
                           </Accordion.Header>
                           <Accordion.Body>
                             {
-                              category.subcategories.map(subcategory =>
-                                  <div
-                                    className='categorybutton'
-                                    key={subcategory.id}
-                                    onClick={(e) => categoryClick(e, [subcategory.id])}
-                                    style={{ margin: '4px 0', padding: '6px 0', cursor: 'pointer' }}
-                                  >
-                                    {subcategory.name}
-                                  </div>
+                              category.subcategories.map((subcategory, index1) =>
+                                subcategory.subcategories
+                                  ? <Accordion.Item eventKey={index + '.' + index1} key={subcategory.id}>
+                                      <Accordion.Header
+                                        onClick={(e) => {
+                                          e.stopPropagation()
+                                          setActiveKey([index, index + '.' + index1])
+                                          if (subcategory.subcategories) {
+                                            categoryClick(e, index, subcategory.subcategories.map(subcategory => subcategory.id))
+                                          } else {
+                                            categoryClick(e, index, subcategory.id)
+                                          }
+                                        }}
+                                      >
+                                        <div
+                                          className='categorybutton'
+                                          style={{ width: '100%', height: '100%', fontWeight: product.selectedCategory.toString() === subcategory.id.toString() ? 'bold' : 'normal' }}
+                                        >
+                                          {subcategory.name}
+                                          </div>
+                                      </Accordion.Header>
+                                      <Accordion.Body>
+                                        {
+                                          subcategory.subcategories.map(subsubcategory =>
+                                              <div
+                                                className='categorybutton'
+                                                key={subsubcategory.id}
+                                                onClick={(e) => {
+                                                  categoryClick(e, [index, index + '.' + index1], [subsubcategory.id])
+                                                }}
+                                                style={{ margin: '4px 0', padding: '6px 0', cursor: 'pointer', fontWeight: product.selectedCategory.length === 1 && product.selectedCategory[0] === subsubcategory.id ? 'bold' : 'normal' }}
+                                              >
+                                                {subsubcategory.name}
+                                              </div>
+                                          )
+                                        }
+                                      </Accordion.Body>
+                                    </Accordion.Item>
+                                  : <div
+                                      className='categorybutton'
+                                      key={subcategory.id}
+                                      onClick={(e) => {
+                                        categoryClick(e, index, [subcategory.id])
+                                      }}
+                                      style={{ margin: '4px 0', padding: '6px 0', cursor: 'pointer', fontWeight: product.selectedCategory.length === 1 && product.selectedCategory[0] === subcategory.id ? 'bold' : 'normal' }}
+                                    >
+                                      {subcategory.name}
+                                    </div>
                               )
                             }
                           </Accordion.Body>
@@ -178,8 +266,10 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
                       : <div
                             className='categorybutton'
                             key={category.id}
-                            onClick={(e) => categoryClick(e, [category.id])}
-                            style={{ padding: 7, fontSize: '1.1rem', cursor: 'pointer' }}
+                            onClick={(e) => {
+                              categoryClick(e, index, [category.id])
+                            }}
+                            style={{ padding: 7, fontSize: '1.1rem', cursor: 'pointer', fontWeight: product.selectedCategory.length === 1 && product.selectedCategory[0] === category.id ? 'bold' : 'normal' }}
                           >
                           {category.name}
                         </div>
