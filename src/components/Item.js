@@ -6,6 +6,7 @@ import { Context } from '../index'
 import BrandCard from './modals/BrandCard'
 
 const Item = ({ path }) => {
+  console.log('item')
   const navigate = useNavigate()
   const { product } = useContext(Context)
 

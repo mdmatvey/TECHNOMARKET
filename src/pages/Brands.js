@@ -26,6 +26,7 @@ const Brands = observer(() => {
     fetchBrands()
       .then(data => {
         product.setBrands(data)
+        setBrandsToDisplay(product.brands)
         setIsLoading(false)
       })
   }, [])
