@@ -26,6 +26,8 @@ const Shop = observer(() => {
   const [p, setP] = useState(3)
 
   useEffect(() => {
+    product.setIsProductsLoading(true)
+
     fetchCategories()
       .then(data => {
         product.setCategories(data)

@@ -25,7 +25,7 @@ const ProductList = observer(({ isProductsLoading }) => {
   }, [user.userWidth])
 
   return (
-    product.totalCount === 0
+    !isProductsLoading && product.totalCount === 0
       ? <>
           <div style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '10% 0' }}>
               <BsSearch style={{ fontSize: '10rem' }} id="mag" />
@@ -37,8 +37,8 @@ const ProductList = observer(({ isProductsLoading }) => {
             <Row style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, width: '100%' }}>
                 {
                     isProductsLoading
-                      ? <SkeletonProduct products={4} />
-                      : product.products.length !== undefined
+                      ? <SkeletonProduct products={12} />
+                      : product.products !== undefined
                         ? product.products.map(product =>
                             <Product key={product.key} item={product} />
                         )
@@ -49,8 +49,8 @@ const ProductList = observer(({ isProductsLoading }) => {
         : <Container style={{ padding: 10, overflow: 'auto' }}>
                 {
                     isProductsLoading
-                      ? <SkeletonProduct products={4} />
-                      : product.products.length !== undefined
+                      ? <SkeletonProduct products={12} />
+                      : product.products !== undefined
                         ? product.products.map(product =>
                             <Product key={product.key} item={product} />
                         )
