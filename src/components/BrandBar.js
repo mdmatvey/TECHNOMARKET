@@ -50,6 +50,7 @@ const BrandBar = observer(() => {
 
   const choosePage = (route, element1, element2, element3) => {
     navigate(route)
+    user.setSelectedTab(element3.id)
     element1.style.fontWeight = 'normal'
     element2.style.fontWeight = 'normal'
     element3.style.fontWeight = 'bold'
@@ -81,7 +82,7 @@ const BrandBar = observer(() => {
                     <Button
                         onClick={(e) => choosePage(ABOUT_ROUTE, document.getElementById('catalog'), document.getElementById('brands'), e.target)}
                         className='me-3'
-                        style={{ ...TEXTBUTTON_STYLE, color: '#000', transition: '0.05s', fontSize: '1.5rem' }}
+                        style={{ ...TEXTBUTTON_STYLE, color: '#000', fontWeight: user.selectedTab === 'about' ? 'bold' : 'normal', transition: '0.05s', fontSize: '1.5rem' }}
                         id='about'
                     >
                         О нас
@@ -89,14 +90,14 @@ const BrandBar = observer(() => {
                     <Button
                         onClick={(e) => choosePage(SHOP_ROUTE, document.getElementById('about'), document.getElementById('brands'), e.target)}
                         className='me-3'
-                        style={{ ...TEXTBUTTON_STYLE, color: '#000', fontWeight: 'bold', transition: '0.05s', fontSize: '1.5rem' }}
+                        style={{ ...TEXTBUTTON_STYLE, color: '#000', fontWeight: user.selectedTab === 'catalog' ? 'bold' : 'normal', transition: '0.05s', fontSize: '1.5rem' }}
                         id='catalog'
                     >
                         Каталог
                     </Button>
                     <Button
                         onClick={(e) => choosePage(BRANDS_ROUTE, document.getElementById('about'), document.getElementById('catalog'), e.target)}
-                        style={{ ...TEXTBUTTON_STYLE, color: '#000', transition: '0.05s', fontSize: '1.5rem' }}
+                        style={{ ...TEXTBUTTON_STYLE, color: '#000', fontWeight: user.selectedTab === 'brands' ? 'bold' : 'normal', transition: '0.05s', fontSize: '1.5rem' }}
                         id='brands'
                     >
                         Бренды

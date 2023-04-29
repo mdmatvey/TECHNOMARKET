@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Breadcrumb, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { PRIMARY_COLOR } from '../utils/uiConsts'
 import { ImHome3, ImInfo } from 'react-icons/im'
+import { Context } from '..'
 
 const About = () => {
+  const { user } = useContext(Context)
+  user.setSelectedTab('about')
+
   return (
         <>
           <Container>

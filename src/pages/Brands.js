@@ -13,6 +13,7 @@ import '../styles/BrandBarStyles.css'
 
 const Brands = observer(() => {
   const { product, user } = useContext(Context)
+  user.setSelectedTab('brands')
 
   const [isLoading, setIsLoading] = useState(true)
 
