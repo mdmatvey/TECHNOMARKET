@@ -38,7 +38,7 @@ const ProductList = observer(({ isProductsLoading }) => {
                 {
                     isProductsLoading
                       ? <SkeletonProduct products={12} />
-                      : product.products !== undefined
+                      : product.products && product.products.length
                         ? product.products.map(product =>
                             <Product key={product.key} item={product} />
                         )
@@ -50,7 +50,7 @@ const ProductList = observer(({ isProductsLoading }) => {
                 {
                     isProductsLoading
                       ? <SkeletonProduct products={12} />
-                      : product.products !== undefined
+                      : product.products && product.products.length
                         ? product.products.map(product =>
                             <Product key={product.key} item={product} />
                         )

@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite'
 import { PRIMARY_COLOR } from '../utils/uiConsts'
 import { BsFillTelephoneFill } from 'react-icons/bs'
 import { IoIosMail } from 'react-icons/io'
-import NavBarStyles from '../styles/NavBarStyles.css'
+import '../styles/NavBarStyles.css'
 
 const NavBar = observer(() => {
   return (
