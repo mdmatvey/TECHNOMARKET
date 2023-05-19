@@ -158,11 +158,11 @@ const FilterBar = observer(({ isCategoriesLoading, isBrandsLoading }) => {
                 <Modal.Title>Бренды</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <Form className='mt-2' style={{ display: 'grid', gridTemplateColumns: '1fr', width: '100%', height: 300, overflowY: 'scroll', background: '#fff' }}>
+                <Form className='mt-2' style={{ display: 'grid', gridTemplateColumns: '1fr', width: '100%', height: 285, overflowY: 'scroll', background: '#fff' }}>
                     {
                         isBrandsLoading
                           ? <>
-                                <Skeleton count={4} style={{ width: '80%' }} />
+                                <Skeleton count={12} style={{ width: '80%' }} />
                             </>
                           : product.brands.map(brand => {
                             return (
