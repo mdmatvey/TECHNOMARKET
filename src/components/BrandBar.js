@@ -21,7 +21,7 @@ const BrandBar = observer(() => {
 
   const search = (e, searchParam) => {
     e.preventDefault()
-    navigate(SHOP_ROUTE, { state: { firstRender: false } })
+    navigate(SHOP_ROUTE)
     product.setSearchQuery(searchParam)
     setQuery('')
   }
