@@ -22,9 +22,13 @@ const Pages = observer(() => {
       ? <Pagination className='mt-5' style={{ justifyContent: 'center' }}>
           { midLow > 0 &&
             <>
-              <Pagination.First
+              <Pagination.Item
+                key={1}
+                active={product.page === 1}
                 onClick={() => product.setPage(1)}
-              />
+              >
+                {1}
+              </Pagination.Item>
               <Pagination.Ellipsis disabled />
               <Pagination.Item
                 key={midLow}
@@ -52,9 +56,13 @@ const Pages = observer(() => {
                 {midHigh}
               </Pagination.Item>
               <Pagination.Ellipsis disabled />
-              <Pagination.Last
+              <Pagination.Item
+                key={pageCount}
+                active={product.page === pageCount}
                 onClick={() => product.setPage(pageCount)}
-              />
+              >
+                {pageCount}
+              </Pagination.Item>
             </>
           }
         </Pagination>
